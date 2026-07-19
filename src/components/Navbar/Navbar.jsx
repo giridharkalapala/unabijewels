@@ -32,6 +32,13 @@ function Navbar() {
           </NavLink>
 
           <NavLink
+            to="/gallery"
+            className={({ isActive }) => (isActive ? styles.active : "")}
+          >
+            Gallery
+          </NavLink>
+
+          <NavLink
             to="/about"
             className={({ isActive }) =>
               isActive ? styles.active : ""

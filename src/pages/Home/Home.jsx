@@ -1,6 +1,9 @@
 import styles from "./Home.module.css";
 import FeaturedCollections from "../../components/FeaturedCollections/FeaturedCollections";
 import Categories from "../../components/Categories/Categories";
+import NewArrivals from "../../components/NewArrivals/NewArrivals";
+import WhyChoose from "../../components/WhyChoose/WhyChoose";
+
 function Home() {
   return (
     <>
@@ -32,6 +35,8 @@ function Home() {
 
       <FeaturedCollections />
       <Categories />
+      <NewArrivals />
+      <WhyChoose />
     </>
   );
 }
