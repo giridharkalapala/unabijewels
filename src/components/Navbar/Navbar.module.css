@@ -18,7 +18,7 @@
     height: 80px;
 }
 
-.logo {
+/* .logo {
     text-decoration: none;
     font-size: 34px;
     font-weight: 700;
@@ -31,6 +31,18 @@
 
 .logoGold {
     color: #C98F7B;
+} */
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logoImage {
+  height: 79px;   /* Adjust as needed */
+  width: auto;
+  object-fit: contain;
 }
 
 .nav {
