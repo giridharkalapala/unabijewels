@@ -31,4 +31,10 @@
 
 .sidebar a:hover {
     background: #C98F7B;
+    color: white !important;
+}
+
+.active {
+    background: #e9f9ef;
+    color: #C98F7B !important;
 }

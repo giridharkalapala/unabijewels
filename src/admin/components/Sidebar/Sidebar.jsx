@@ -9,6 +9,7 @@ function Sidebar() {
     { name: "Categories", path: "/admin/categories" },
     { name: "Gallery", path: "/admin/gallery" },
     { name: "Testimonials", path: "/admin/testimonials" },
+    { name: "Enquiries", path: "/admin/enquiries" },
     { name: "Contact", path: "/admin/contact" },
     { name: "Site Settings", path: "/admin/settings" },
     { name: "Profile", path: "/admin/profile" },

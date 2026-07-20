@@ -11,8 +11,6 @@ import NotFound from "./pages/NotFound/NotFound";
 import Collections from "./pages/Collections/Collections";
 import Gallery from "./pages/Gallery/Gallery";
 
-
-
 // Admin
 import Login from "./admin/Login/Login";
 import Dashboard from "./admin/Dashboard/Dashboard";
@@ -23,6 +21,18 @@ import AdminLayout from "./admin/AdminLayout/AdminLayout";
 import AddProduct from "./admin/Products/AddProduct/AddProduct";
 import ProductList from "./admin/Products/ProductList/ProductList";
 import EditProduct from "./admin/Products/EditProduct/EditProduct";
+import CategoryList from "./admin/Categories/CategoryList/CategoryList";
+import AddCategory from "./admin/Categories/AddCategory/AddCategory";
+import EditCategory from "./admin/Categories/EditCategory/EditCategory";
+import GalleryList from "./admin/Gallery/GalleryList/GalleryList";
+import AddGallery from "./admin/Gallery/AddGallery/AddGallery";
+import EditGallery from "./admin/Gallery/EditGallery/EditGallery";
+import TestimonialList from "./admin/Testimonials/TestimonialList/TestimonialList";
+import AddTestimonial from "./admin/Testimonials/AddTestimonial/AddTestimonial";
+import EditTestimonial from "./admin/Testimonials/EditTestimonial/EditTestimonial";
+import EnquiryList from "./admin/Enquiries/EnquiryList/EnquiryList";
+import ViewEnquiry from "./admin/Enquiries/ViewEnquiry/ViewEnquiry";
+
 
 function App() {
   return (
@@ -51,6 +61,22 @@ function App() {
           <Route path="products/add" element={<AddProduct />} />
           <Route path="products/edit/:id" element={<EditProduct />} />
 
+          <Route path="categories" element={<CategoryList />} />
+          <Route path="categories/add" element={<AddCategory />} />
+          <Route path="categories/edit/:id" element={<EditCategory />} />
+
+          <Route path="gallery" element={<GalleryList />} />
+          <Route path="gallery/add" element={<AddGallery />} />
+          <Route path="gallery/edit/:id" element={<EditGallery />} />
+
+          <Route path="testimonials" element={<TestimonialList />} />
+          <Route path="testimonials/add" element={<AddTestimonial />} />
+          <Route path="testimonials/edit/:id" element={<EditTestimonial />} />
+          
+          <Route path="enquiries" element={<EnquiryList />} />
+<Route path="enquiries/view/:id" element={<ViewEnquiry />} />
+
+        
         </Route>
 
         {/* 404 */}

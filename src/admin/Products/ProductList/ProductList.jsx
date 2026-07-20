@@ -13,7 +13,6 @@ function ProductList() {
   const [deleteProduct, setDeleteProduct] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
-
   useEffect(() => {
     fetchProducts();
     fetchCategories();
@@ -24,12 +23,14 @@ function ProductList() {
 
     const { data, error } = await supabase
       .from("products")
-      .select(`
+      .select(
+        `
         *,
         categories (
           name
         )
-      `)
+      `,
+      )
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -83,14 +84,12 @@ function ProductList() {
       .includes(search.toLowerCase());
 
     const matchesCategory =
-      selectedCategory === "" ||
-      product.category_id === selectedCategory;
+      selectedCategory === "" || product.category_id === selectedCategory;
 
     return matchesSearch && matchesCategory;
   });
 
   return (
-
     <div className="product-list">
       <DeleteModal
         open={!!deleteProduct}
@@ -144,7 +143,6 @@ function ProductList() {
         </div>
       ) : (
         <table>
-
           <thead>
             <tr>
               <th>Image</th>
@@ -159,63 +157,72 @@ function ProductList() {
           </thead>
 
           <tbody>
-
             {filteredProducts.map((product) => (
               <tr key={product.id}>
-
                 <td>
                   <img
-                    src={
-                      product.image ||
-                      "https://via.placeholder.com/70"
-                    }
+                    src={product.image}
                     alt={product.name}
                     className="thumb"
                   />
                 </td>
 
-                <td>{product.name}</td>
+                <td>
+                  <div className="product-info">
+                    <strong>{product.name}</strong>
+
+                    <small>{product.material}</small>
+                  </div>
+                </td>
 
                 <td>{product.categories?.name}</td>
 
                 <td>{product.material}</td>
 
+                <td>₹{product.price || "-"}</td>
+
                 <td>
-                  ₹{product.price || "-"}
+                  <div className="status-group">
+                    {product.featured && (
+                      <span className="badge featured">⭐ Featured</span>
+                    )}
+
+                    {product.new_arrival && (
+                      <span className="badge new">🆕 New</span>
+                    )}
+
+                    <span
+                      className={`badge ${
+                        product.is_active ? "active" : "inactive"
+                      }`}
+                    >
+                      {product.is_active ? "🟢 Active" : "🔴 Inactive"}
+                    </span>
+                  </div>
                 </td>
 
                 <td>
-                  {product.featured ? "✅" : "-"}
+                  <div className="actions">
+                    <Link
+                      to={`/admin/products/edit/${product.id}`}
+                      className="edit"
+                    >
+                      ✏️ Edit
+                    </Link>
+
+                    <button
+                      className="delete"
+                      onClick={() => setDeleteProduct(product)}
+                    >
+                      🗑 Delete
+                    </button>
+                  </div>
                 </td>
-
-                <td>
-                  {product.new_arrival ? "🆕" : "-"}
-                </td>
-
-                <td>
-                  <Link
-                    to={`/admin/products/edit/${product.id}`}
-                    className="edit"
-                  >
-                    ✏️ Edit
-                  </Link>
-
-                  <button
-                    className="delete"
-                    onClick={() => setDeleteProduct(product)}
-                  >
-                    🗑 Delete
-                  </button>
-                </td>
-
               </tr>
             ))}
-
           </tbody>
-
         </table>
       )}
-
     </div>
   );
 }

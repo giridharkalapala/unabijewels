@@ -1,25 +1,51 @@
+.dashboard {
+  width: 100%;
+}
+
 .dashboard h1 {
   margin-bottom: 30px;
+  font-size: 38px;
+  font-weight: 700;
 }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
 }
 
 .recent {
   margin-top: 40px;
   background: white;
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+.recent h2 {
+  margin-bottom: 20px;
 }
 
 .recent ul {
-  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .recent li {
-  margin-bottom: 12px;
+  list-style: none;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.recent li:last-child {
+  border-bottom: none;
+}
+
+.recent small {
+  color: #888;
+}
+
+.recent li:last-child {
+  border-bottom: none;
 }

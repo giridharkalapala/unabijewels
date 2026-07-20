@@ -114,3 +114,75 @@ th {
 .edit:hover {
   background: #1f66d1;
 }
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info strong {
+  font-size: 15px;
+}
+
+.product-info small {
+  color: #888;
+  margin-top: 4px;
+}
+
+.status-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.featured {
+  background: #fff5cc;
+  color: #b8860b;
+}
+
+.new {
+  background: #eaf7ff;
+  color: #0066cc;
+}
+
+.active {
+  background: #e9f9ef;
+  color: #1f7a3f;
+}
+
+.inactive {
+  background: #fdeaea;
+  color: #c62828;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+tr:hover {
+  background: #fafafa;
+  transition: .2s;
+}
+
+.thumb {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 5;
+}
