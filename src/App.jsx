@@ -32,6 +32,7 @@ import AddTestimonial from "./admin/Testimonials/AddTestimonial/AddTestimonial";
 import EditTestimonial from "./admin/Testimonials/EditTestimonial/EditTestimonial";
 import EnquiryList from "./admin/Enquiries/EnquiryList/EnquiryList";
 import ViewEnquiry from "./admin/Enquiries/ViewEnquiry/ViewEnquiry";
+import WebsiteSettings from "./admin/WebsiteSettings/WebsiteSettings";
 
 
 function App() {
@@ -72,11 +73,12 @@ function App() {
           <Route path="testimonials" element={<TestimonialList />} />
           <Route path="testimonials/add" element={<AddTestimonial />} />
           <Route path="testimonials/edit/:id" element={<EditTestimonial />} />
-          
-          <Route path="enquiries" element={<EnquiryList />} />
-<Route path="enquiries/view/:id" element={<ViewEnquiry />} />
 
-        
+          <Route path="enquiries" element={<EnquiryList />} />
+          <Route path="enquiries/view/:id" element={<ViewEnquiry />} />
+          
+          <Route path="settings"element={<WebsiteSettings />}/>
+
         </Route>
 
         {/* 404 */}

@@ -1,0 +1,72 @@
+.mobile-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:999;
+}
+
+.mobile-overlay.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.mobile-menu{
+    position:fixed;
+    top:0;
+    right:-320px;
+    width:300px;
+    height:100vh;
+    background:#fff;
+    transition:.35s ease;
+    z-index:1000;
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+}
+
+.mobile-menu.open{
+    right:0;
+}
+
+.mobile-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.mobile-header h2{
+    font-family:"Cormorant Garamond", serif;
+    color:#C98F7B;
+    margin:0;
+}
+
+.mobile-header button{
+    background:none;
+    border:none;
+    font-size:30px;
+    cursor:pointer;
+}
+
+.mobile-menu nav{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.mobile-link{
+    text-decoration:none;
+    color:#333;
+    font-size:18px;
+    transition:.3s;
+}
+.mobile-link.active{
+   background: none !important;
+}
+.mobile-link:hover,
+.mobile-link.active{
+    color:#C98F7B;
+}

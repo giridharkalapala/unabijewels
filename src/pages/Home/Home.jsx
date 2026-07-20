@@ -1,4 +1,4 @@
-import styles from "./Home.module.css";
+import Hero from "../../components/Hero/Hero";
 import FeaturedCollections from "../../components/FeaturedCollections/FeaturedCollections";
 import Categories from "../../components/Categories/Categories";
 import NewArrivals from "../../components/NewArrivals/NewArrivals";
@@ -7,31 +7,7 @@ import WhyChoose from "../../components/WhyChoose/WhyChoose";
 function Home() {
   return (
     <>
-      <section className={styles.hero}>
-        <div className={styles.overlay}></div>
-
-        <div className={styles.content}>
-          <p className={styles.subtitle}>
-            Luxury Jewellery Collection
-          </p>
-
-          <h1>
-            Timeless
-            <br />
-            Jewellery
-            <br />
-            Crafted For You
-          </h1>
-
-          <p className={styles.description}>
-            Discover handcrafted jewellery designed to celebrate life's most beautiful moments.
-          </p>
-
-          <button className={styles.btn}>
-            Explore Collection
-          </button>
-        </div>
-      </section>
+      <Hero />
 
       <FeaturedCollections />
       <Categories />
