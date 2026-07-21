@@ -34,8 +34,25 @@ function CategoryList() {
     if (error) {
       console.error(error);
     } else {
-      setCategories(data);
-      setFilteredCategories(data);
+      const categoriesWithImages = data.map((category) => {
+        let imageUrl = "";
+
+        if (category.image) {
+          const { data: publicUrlData } = supabase.storage
+            .from("categories")
+            .getPublicUrl(category.image);
+
+          imageUrl = publicUrlData.publicUrl;
+        }
+
+        return {
+          ...category,
+          imageUrl,
+        };
+      });
+
+      setCategories(categoriesWithImages);
+      setFilteredCategories(categoriesWithImages);
     }
 
     setLoading(false);
@@ -107,9 +124,12 @@ function CategoryList() {
                 <td>
                   {category.image ? (
                     <img
-                      src={category.image}
+                      src={category.imageUrl}
                       alt={category.name}
                       className="thumb"
+                      onError={(e) => {
+                        e.target.src = "/placeholder-category.png";
+                      }}
                     />
                   ) : (
                     "—"

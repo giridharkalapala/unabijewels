@@ -1,66 +1,85 @@
 .section {
-    padding: 100px 8%;
-    background: #FFF8F6;
+  padding: 65px 0;
+  background: #ffffff;
 }
 
 .heading {
-    text-align: center;
-    margin-bottom: 60px;
+  text-align: center;
+  margin-bottom: 60px;
 }
 
 .heading p {
-    color: #C98F7B;
-    letter-spacing: 3px;
-    margin-bottom: 12px;
+  color: #C98F7B;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .heading h2 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 52px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(40px, 5vw, 56px);
+  margin: 16px 0;
+  color: #222;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
+.heading span {
+  color: #777;
+  font-size: 17px;
 }
 
 .card {
-    background: white;
-    padding: 40px 20px;
-    border-radius: 18px;
-    text-align: center;
-    transition: 0.3s;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
 }
 
-.card:hover {
-    transform: translateY(-8px);
+.imageWrapper {
+  width: 180px;
+  height: 180px;
+  margin: auto;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  border: 4px solid #f5e7e2;
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, .08);
+
+  transition: .4s;
 }
 
-.icon {
-    font-size: 36px;
-    margin-bottom: 15px;
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transition: .6s;
+}
+
+.card:hover .imageWrapper {
+  transform: translateY(-8px);
+  border-color: #C98F7B;
+  box-shadow: 0 20px 45px rgba(201, 143, 123, .35);
+}
+
+.card:hover img {
+  transform: scale(1.1);
 }
 
 .card h3 {
-    font-size: 20px;
-    font-weight: 500;
+  margin-top: 20px;
+  font-size: 28px;
+  font-family: "Cormorant Garamond", serif;
+  color: #222;
 }
 
-@media (max-width: 992px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+:global(.swiper-button-next),
+:global(.swiper-button-prev) {
+  color: #C98F7B;
 }
 
-@media (max-width: 576px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .heading h2 {
-        font-size: 40px;
-    }
+:global(.swiper) {
+    padding: 20px 0px;;
 }

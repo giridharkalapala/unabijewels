@@ -198,7 +198,7 @@ function ProductForm({
 
       </div>
 
-      <button disabled={loading}>
+      <button className="save-product-btn" disabled={loading}>
         {loading
           ? "Saving..."
           : initialData.id

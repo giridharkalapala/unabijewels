@@ -7,7 +7,6 @@ import {
 import "./SettingsForm.css";
 
 function SettingsForm() {
-
   const [loading, setLoading] = useState(false);
 
   const [currentSettings, setCurrentSettings] = useState(null);
@@ -50,17 +49,12 @@ function SettingsForm() {
       alert("Website settings saved successfully!");
 
       loadSettings();
-
     } catch (error) {
-
       console.error(error);
 
       alert(error.message);
-
     } finally {
-
       setLoading(false);
-
     }
   }
 
@@ -81,7 +75,6 @@ function SettingsForm() {
         logo: data.logo,
         favicon: data.favicon,
       });
-
     } catch (error) {
       console.error(error);
     }
@@ -89,13 +82,10 @@ function SettingsForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-
       <div className="settings-card">
-
         <h3>General Information</h3>
 
         <div className="form-grid">
-
           <div className="form-group">
             <label>Company Name</label>
 
@@ -119,19 +109,14 @@ function SettingsForm() {
               placeholder="Luxury Jewellery"
             />
           </div>
-
         </div>
-
       </div>
 
       <div className="settings-card">
-
         <h3>Branding</h3>
 
         <div className="form-grid">
-
           <div className="form-group">
-
             <label>Logo</label>
 
             <input
@@ -146,7 +131,6 @@ function SettingsForm() {
             />
 
             {form.logo && (
-
               <img
                 src={
                   form.logo instanceof File
@@ -156,13 +140,10 @@ function SettingsForm() {
                 alt="Logo Preview"
                 className="preview-image"
               />
-
             )}
-
           </div>
 
           <div className="form-group">
-
             <label>Favicon</label>
 
             <input
@@ -177,29 +158,25 @@ function SettingsForm() {
             />
 
             {form.favicon && (
-
               <img
-                src={URL.createObjectURL(form.favicon)}
+                src={
+                  form.favicon instanceof File
+                    ? URL.createObjectURL(form.favicon)
+                    : form.favicon
+                }
                 alt="Favicon Preview"
                 className="preview-image favicon"
               />
-
             )}
-
           </div>
-
         </div>
-
       </div>
 
       <div className="settings-card">
-
         <h3>Contact Information</h3>
 
         <div className="form-grid">
-
           <div className="form-group">
-
             <label>Phone</label>
 
             <input
@@ -208,11 +185,9 @@ function SettingsForm() {
               value={form.phone}
               onChange={handleChange}
             />
-
           </div>
 
           <div className="form-group">
-
             <label>Alternate Phone</label>
 
             <input
@@ -221,11 +196,9 @@ function SettingsForm() {
               value={form.alternate_phone}
               onChange={handleChange}
             />
-
           </div>
 
           <div className="form-group">
-
             <label>Email</label>
 
             <input
@@ -234,11 +207,9 @@ function SettingsForm() {
               value={form.email}
               onChange={handleChange}
             />
-
           </div>
 
           <div className="form-group full-width">
-
             <label>Address</label>
 
             <textarea
@@ -247,11 +218,9 @@ function SettingsForm() {
               value={form.address}
               onChange={handleChange}
             />
-
           </div>
 
           <div className="form-group">
-
             <label>Business Hours</label>
 
             <input
@@ -260,11 +229,9 @@ function SettingsForm() {
               value={form.business_hours}
               onChange={handleChange}
             />
-
           </div>
 
           <div className="form-group">
-
             <label>Google Maps URL</label>
 
             <input
@@ -273,19 +240,14 @@ function SettingsForm() {
               value={form.maps_url}
               onChange={handleChange}
             />
-
           </div>
-
         </div>
-
       </div>
 
       <div className="settings-card">
-
         <h3>Social Media</h3>
 
         <div className="form-grid">
-
           <div className="form-group">
             <label>Facebook</label>
 
@@ -329,17 +291,13 @@ function SettingsForm() {
               onChange={handleChange}
             />
           </div>
-
         </div>
-
       </div>
 
       <div className="settings-card">
-
         <h3>Footer</h3>
 
         <div className="form-group">
-
           <label>Copyright</label>
 
           <input
@@ -348,27 +306,18 @@ function SettingsForm() {
             value={form.copyright}
             onChange={handleChange}
           />
-
         </div>
-
       </div>
 
       <div className="submit-area">
-
-        <button
-          className="save-btn"
-          type="submit"
-          disabled={loading}
-        >
+        <button className="save-btn" type="submit" disabled={loading}>
           {loading ? "Saving..." : "Save Settings"}
         </button>
-
       </div>
 
       {/* <button type="submit">
         Save Settings
       </button> */}
-
     </form>
   );
 }

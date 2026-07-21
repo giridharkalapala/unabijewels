@@ -38,11 +38,11 @@
     flex-wrap:wrap;
 }
 
-button{
+.save-product-btn{
     background:#C98F7B;
     color:white;
     border:none;
-    padding:14px 30px;
+    padding:14px 30px ;
     border-radius:10px;
     cursor:pointer;
 }

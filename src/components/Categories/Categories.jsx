@@ -1,32 +1,72 @@
-import styles from "./Categories.module.css";
+import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
 
-const categories = [
-  "Rings",
-  "Necklaces",
-  "Earrings",
-  "Bangles",
-  "Chains",
-  "Bracelets",
-  "Pendants",
-  "Mangalsutra",
-];
+import "swiper/css";
+import "swiper/css/navigation";
+
+import styles from "./Categories.module.css";
+import CategoryCard from "./CategoryCard";
+import { getAllActiveCategories } from "../../services/categoryService";
 
 function Categories() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  async function loadCategories() {
+    try {
+      const data = await getAllActiveCategories();
+      setCategories(data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <section className={styles.section}>
       <div className={styles.heading}>
         <p>CATEGORIES</p>
-        <h2>Shop by Category</h2>
+
+        <h2>Shop By Category</h2>
+
+        <span>
+          Explore every jewellery collection crafted with elegance.
+        </span>
       </div>
 
-      <div className={styles.grid}>
+      <Swiper
+        modules={[Navigation, Autoplay]}
+        navigation
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        loop={categories.length > 4}
+        spaceBetween={30}
+        breakpoints={{
+          0: {
+            slidesPerView: 2,
+          },
+          640: {
+            slidesPerView: 3,
+          },
+          992: {
+            slidesPerView: 4,
+          },
+          1200: {
+            slidesPerView: 5,
+          },
+        }}
+      >
         {categories.map((category) => (
-          <div key={category} className={styles.card}>
-            <div className={styles.icon}>💎</div>
-            <h3>{category}</h3>
-          </div>
+          <SwiperSlide key={category.id}>
+            <CategoryCard category={category} />
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </section>
   );
 }

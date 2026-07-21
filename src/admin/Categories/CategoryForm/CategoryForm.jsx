@@ -5,6 +5,7 @@ const DEFAULT_FORM_DATA = {
   name: "",
   slug: "",
   description: "",
+  image: null,
   is_active: true,
 };
 
@@ -17,19 +18,25 @@ function CategoryForm({
     name: "",
     slug: "",
     description: "",
+    image: null,
     is_active: true,
   });
 
-  useEffect(() => {
-    if (initialData === DEFAULT_FORM_DATA) return;
+  const [preview, setPreview] = useState("");
 
-    setFormData({
-      name: initialData.name || "",
-      slug: initialData.slug || "",
-      description: initialData.description || "",
-      is_active: initialData.is_active ?? true,
-    });
-  }, [initialData]);
+  useEffect(() => {
+  if (initialData === DEFAULT_FORM_DATA) return;
+
+  setFormData({
+    name: initialData.name || "",
+    slug: initialData.slug || "",
+    description: initialData.description || "",
+    image: null,
+    is_active: initialData.is_active ?? true,
+  });
+
+  setPreview(initialData.image || "");
+}, [initialData]);
 
   function generateSlug(value) {
     return value
@@ -40,22 +47,37 @@ function CategoryForm({
   }
 
   function handleChange(e) {
-    const { name, value, type, checked } = e.target;
+  const { name, value, type, checked, files } = e.target;
 
-    if (name === "name") {
-      setFormData((prev) => ({
-        ...prev,
-        name: value,
-        slug: generateSlug(value),
-      }));
-      return;
-    }
+  if (type === "file") {
+    const file = files[0];
 
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      image: file,
     }));
+
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
+
+    return;
   }
+
+  if (name === "name") {
+    setFormData((prev) => ({
+      ...prev,
+      name: value,
+      slug: generateSlug(value),
+    }));
+    return;
+  }
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: type === "checkbox" ? checked : value,
+  }));
+}
 
   //   function handleSubmit(e) {
   //     e.preventDefault();
@@ -106,6 +128,23 @@ function CategoryForm({
           onChange={handleChange}
         />
       </div>
+
+      <div className="form-group">
+  <label>Category Image</label>
+
+  <input
+    type="file"
+    name="image"
+    accept="image/*"
+    onChange={handleChange}
+  />
+
+  {preview && (
+    <div className="image-preview">
+      <img src={preview} alt="Preview" />
+    </div>
+  )}
+</div>
 
       <div className="checkbox-group">
         <input

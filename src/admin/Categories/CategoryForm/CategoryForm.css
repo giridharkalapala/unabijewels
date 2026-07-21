@@ -58,3 +58,15 @@
   opacity: .6;
   cursor: not-allowed;
 }
+
+.image-preview{
+    margin-top:15px;
+}
+
+.image-preview img{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:12px;
+    border:1px solid #ddd;
+}
