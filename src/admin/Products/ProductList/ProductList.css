@@ -102,8 +102,8 @@ th {
 
 .edit {
   display: inline-block;
-  background: #2d7ef7;
-  color: #fff;
+  background: linear-gradient(135deg, #1d6ed8, #2d7ef7);
+  color: #000000 !important;
   padding: 8px 12px;
   border-radius: 6px;
   text-decoration: none;
@@ -112,7 +112,9 @@ th {
 }
 
 .edit:hover {
-  background: #1f66d1;
+  background: linear-gradient(135deg, #165bb8, #1f90d1) !important;
+  color: #fff !important;
+  text-decoration: none !important;
 }
 
 .product-info {

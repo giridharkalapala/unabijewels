@@ -150,7 +150,7 @@ function ProductList() {
               <th>Category</th>
               <th>Material</th>
               <th>Price</th>
-              <th>Featured</th>
+              {/* <th>Featured</th> */}
               <th>New</th>
               <th>Actions</th>
             </tr>

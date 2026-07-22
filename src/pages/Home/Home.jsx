@@ -3,6 +3,9 @@ import FeaturedCollections from "../../components/FeaturedCollections/FeaturedCo
 import Categories from "../../components/Categories/Categories";
 import NewArrivals from "../../components/NewArrivals/NewArrivals";
 import WhyChoose from "../../components/WhyChoose/WhyChoose";
+import Instagram from "../../components/Instagram/Instagram";
+// import Testimonials from "../../components/Testimonials/Testimonials";
+
 
 function Home() {
   return (
@@ -13,6 +16,9 @@ function Home() {
       <Categories />
       <NewArrivals />
       <WhyChoose />
+      {/* <Testimonials /> */}
+      <Instagram />
+      
     </>
   );
 }

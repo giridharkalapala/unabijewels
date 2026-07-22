@@ -1,72 +1,83 @@
 import { Link } from "react-router-dom";
+import {
+  FaInstagram,
+  FaYoutube,
+  FaFacebookF,
+  FaWhatsapp,
+} from "react-icons/fa";
+import logo from "../../assets/images/logo.png";
 import styles from "./Footer.module.css";
 
 function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-
+        {/* Brand */}
         <div className={styles.brand}>
-          <h2>UNABI JEWELS</h2>
+          <img src={logo} alt="Unabi Jewels Logo" className={styles.logo} />
 
-          <p>
-            Timeless elegance crafted with passion,
-            precision, and exceptional craftsmanship.
+          <p className={styles.tagline}>
+            Timeless Elegance.
+            <br />
+            Crafted with Passion.
           </p>
+
+          <div className={styles.socials}>
+            <a href="#">
+              <FaInstagram />
+            </a>
+
+            <a href="#">
+              <FaYoutube />
+            </a>
+
+            <a href="#">
+              <FaFacebookF />
+            </a>
+
+            <a href="#">
+              <FaWhatsapp />
+            </a>
+          </div>
         </div>
 
-        <div>
+        {/* Quick Links */}
+        <div className={styles.column}>
           <h3>Quick Links</h3>
 
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/collections">Collections</Link></li>
-            <li><Link to="/gallery">Gallery</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-          </ul>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/collections">Collections</Link>
+          <Link to="/gallery">Gallery</Link>
+          <Link to="/contact">Contact</Link>
         </div>
 
-        <div>
+        {/* Collections */}
+        <div className={styles.column}>
           <h3>Collections</h3>
 
-          <ul>
-            <li>Rings</li>
-            <li>Necklaces</li>
-            <li>Earrings</li>
-            <li>Bracelets</li>
-            <li>Pendants</li>
-          </ul>
+          <a href="#">Necklaces</a>
+          <a href="#">Earrings</a>
+          <a href="#">Bangles</a>
+          <a href="#">Bracelets</a>
+          <a href="#">Rings</a>
+          <a href="#">Pendants</a>
         </div>
 
-        <div>
-          <h3>Contact</h3>
+        {/* Contact */}
+        <div className={styles.column}>
+          <h3>Contact Us</h3>
 
-          <ul>
-            <li>📞 +91 98765 43210</li>
-            <li>📧 info@unabijewels.com</li>
-            <li>📍 Hyderabad, India</li>
-            <li>
-              <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp
-              </a>
-            </li>
-          </ul>
+          <p>📍 Vijayawada, Andhra Pradesh</p>
+
+          <p>📞 +91 XXXXX XXXXX</p>
+
+          <p>✉ hello@unabijewels.com</p>
         </div>
-
       </div>
 
-      <div className={styles.bottom}>
-        <p>© 2026 Unabi Jewels. All Rights Reserved.</p>
-
-        <div>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms & Conditions</a>
-        </div>
+      <div className={styles.bottomBar}>
+        © 2026 Unabi Jewels. All Rights Reserved.
       </div>
     </footer>
   );
