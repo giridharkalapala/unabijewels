@@ -12,7 +12,7 @@ function ProductCard({ product }) {
         <h3>{product.name}</h3>
 
         <button>
-          <Link to={`/products/${product.id}`}>
+          <Link to={`/products/${product.slug}`}>
             View Details
           </Link>
         </button>

@@ -25,11 +25,18 @@
 }
 
 .logo {
-
-  height: 80px; 
-  width: auto;
-  object-fit: contain; 
+  width: 100px;
+  height: auto;
   display: block;
+  object-fit: contain;
+  margin-bottom: 24px;
+  transition: all 0.35s ease;
+  filter: drop-shadow(0 8px 18px rgba(201, 143, 123, 0.25));
+}
+
+.logo:hover {
+  transform: translateY(-3px) scale(1.03);
+  filter: drop-shadow(0 12px 25px rgba(201, 143, 123, 0.4));
 }
 
 .tagline {
@@ -156,7 +163,7 @@
   }
 
   .logo {
-    font-size: 30px;
+    width: 100px;
   }
 
 }
@@ -174,6 +181,10 @@
 
   .brand {
     max-width: 100%;
+  }
+
+  .logo {
+    width: 100px;
   }
 
 }
@@ -202,7 +213,8 @@
   }
 
   .logo {
-    font-size: 28px;
+    width: 100px;
+    margin: 0 auto 24px;
   }
 
   .tagline {
@@ -245,8 +257,7 @@
   }
 
   .logo {
-    font-size: 24px;
-    letter-spacing: 2px;
+    width: 100px;
   }
 
   .tagline {

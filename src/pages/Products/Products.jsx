@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Products.module.css";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 
 const products = [
   {
@@ -34,8 +35,7 @@ function Products() {
   const [category, setCategory] = useState("All");
 
   const filteredProducts = products.filter((product) => {
-    const matchesCategory =
-      category === "All" || product.category === category;
+    const matchesCategory = category === "All" || product.category === category;
 
     const matchesSearch = product.name
       .toLowerCase()
@@ -45,60 +45,65 @@ function Products() {
   });
 
   return (
-    <section className={styles.products}>
-      <div className={styles.heading}>
-        <p>OUR COLLECTION</p>
-        <h1>Jewellery Collection</h1>
-      </div>
-
-      {/* Search */}
-      <input
-        type="text"
-        placeholder="Search jewellery..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className={styles.search}
+    <>
+      <Breadcrumb
+        title="Our Collection"
+        items={[{ label: "Home", link: "/" }, { label: "Collections" }]}
       />
+      <section className={styles.products}>
+        <div className={styles.heading}>
+          <p>OUR COLLECTION</p>
+          <h1>Jewellery Collection</h1>
+        </div>
 
-      {/* Category Filter */}
-      <div className={styles.filters}>
-        {["All", "Rings", "Necklaces", "Earrings", "Bracelets"].map((item) => (
-          <button
-            key={item}
-            className={category === item ? styles.active : ""}
-            onClick={() => setCategory(item)}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
+        {/* Search */}
+        <input
+          type="text"
+          placeholder="Search jewellery..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className={styles.search}
+        />
 
-      {/* Product Grid */}
-      <div className={styles.grid}>
-        {filteredProducts.map((product) => (
-          <div className={styles.card} key={product.id}>
-            <img src={product.image} alt={product.name} />
-
-            <div className={styles.info}>
-              <span>{product.category}</span>
-
-              <h3>{product.name}</h3>
-
-              <Link
-                to={`/products/${product.id}`}
-                className={styles.button}
+        {/* Category Filter */}
+        <div className={styles.filters}>
+          {["All", "Rings", "Necklaces", "Earrings", "Bracelets"].map(
+            (item) => (
+              <button
+                key={item}
+                className={category === item ? styles.active : ""}
+                onClick={() => setCategory(item)}
               >
-                View Details
-              </Link>
-            </div>
-          </div>
-        ))}
+                {item}
+              </button>
+            ),
+          )}
+        </div>
 
-        {filteredProducts.length === 0 && (
-          <p className={styles.noResults}>No products found.</p>
-        )}
-      </div>
-    </section>
+        {/* Product Grid */}
+        <div className={styles.grid}>
+          {filteredProducts.map((product) => (
+            <div className={styles.card} key={product.id}>
+              <img src={product.image} alt={product.name} />
+
+              <div className={styles.info}>
+                <span>{product.category}</span>
+
+                <h3>{product.name}</h3>
+
+                <Link to={`/products/${product.id}`} className={styles.button}>
+                  View Details
+                </Link>
+              </div>
+            </div>
+          ))}
+
+          {filteredProducts.length === 0 && (
+            <p className={styles.noResults}>No products found.</p>
+          )}
+        </div>
+      </section>
+    </>
   );
 }
 

@@ -5,6 +5,7 @@ import NewArrivals from "../../components/NewArrivals/NewArrivals";
 import WhyChoose from "../../components/WhyChoose/WhyChoose";
 import Instagram from "../../components/Instagram/Instagram";
 // import Testimonials from "../../components/Testimonials/Testimonials";
+import ContactCTA from "../../components/ContactCTA/ContactCTA";
 
 
 function Home() {
@@ -18,6 +19,7 @@ function Home() {
       <WhyChoose />
       {/* <Testimonials /> */}
       <Instagram />
+      <ContactCTA />
       
     </>
   );

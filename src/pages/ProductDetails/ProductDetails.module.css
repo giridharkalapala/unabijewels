@@ -77,3 +77,279 @@
         font-size: 40px;
     }
 }
+
+/* ==========================
+   Description
+========================== */
+
+.description {
+    font-size: 17px;
+    line-height: 1.9;
+    color: #666;
+    margin-bottom: 35px;
+}
+
+/* ==========================
+   Info Cards
+========================== */
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.infoCard {
+    background: white;
+    border-radius: 18px;
+    padding: 18px 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
+
+.infoCard span {
+    display: block;
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.infoCard strong {
+    font-size: 17px;
+    color: #2d2d2d;
+}
+
+/* ==========================
+   Features
+========================== */
+
+.features {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.features div {
+    background: white;
+    padding: 14px 18px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.05);
+}
+
+/* ==========================
+   Image
+========================== */
+
+.image img {
+    border-radius: 24px;
+    box-shadow: 0 20px 45px rgba(0,0,0,.12);
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.buttons a {
+    transition: .35s ease;
+}
+
+.whatsapp:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(37,211,102,.35);
+}
+
+.call:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(201,143,123,.35);
+}
+
+/* ===========================
+   Gallery
+=========================== */
+
+.gallery{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.mainImage{
+
+    background:white;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.08);
+}
+
+.mainImage img{
+
+    width:100%;
+
+    display:block;
+
+    transition:.45s ease;
+}
+
+.mainImage:hover img{
+
+    transform:scale(1.08);
+}
+
+/* ===========================
+   Thumbnails
+=========================== */
+
+.thumbnails{
+
+    display:flex;
+
+    gap:15px;
+}
+
+.thumb{
+
+    width:90px;
+
+    height:90px;
+
+    padding:5px;
+
+    border:none;
+
+    background:white;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.thumb img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:12px;
+}
+
+.thumb:hover{
+
+    transform:translateY(-4px);
+}
+
+.active{
+
+    border:2px solid #C98F7B;
+}
+
+/* ==========================
+   Mobile
+========================== */
+
+@media(max-width:768px){
+
+.infoGrid{
+    grid-template-columns:1fr;
+}
+
+.buttons{
+    flex-direction:column;
+}
+
+.buttons a{
+    width:100%;
+    text-align:center;
+}
+
+.gallery{
+    margin-bottom:35px;
+}
+
+.thumbnails{
+    justify-content:center;
+}
+
+.thumb{
+    width:70px;
+    height:70px;
+}
+
+}
+
+/* ==========================
+   Related Products
+========================== */
+
+.relatedSection{
+
+    margin-top:100px;
+}
+
+.relatedHeader{
+
+    text-align:center;
+
+    margin-bottom:50px;
+}
+
+.relatedHeader span{
+
+    color:#C98F7B;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    font-size:14px;
+}
+
+.relatedHeader h2{
+
+    margin-top:15px;
+
+    font-size:48px;
+
+    font-family:"Cormorant Garamond", serif;
+
+    color:#2d2d2d;
+}
+
+.relatedGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:30px;
+}
+
+@media(max-width:1100px){
+
+.relatedGrid{
+
+    grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:700px){
+
+.relatedGrid{
+
+    grid-template-columns:1fr;
+}
+
+.relatedHeader h2{
+
+    font-size:36px;
+}
+
+}

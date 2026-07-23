@@ -113,66 +113,54 @@ code {
 ==========================================
 ============================================ */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+  scroll-behavior: smooth;
 }
 
-body{
+body {
+  font-family: "Poppins", sans-serif;
 
-    font-family:'Poppins',sans-serif;
+  color: #333;
 
-    color:#333;
+  background: #fff;
 
-    background:#fff;
-
-    overflow-x:hidden;
-
+  overflow-x: hidden;
 }
 
-a{
+a {
+  text-decoration: none;
 
-text-decoration:none;
-
-color:inherit;
-
+  color: inherit;
 }
 
-img{
+img {
+  display: block;
 
-display:block;
-
-max-width:100%;
-
+  max-width: 100%;
 }
 
-button{
+button {
+  font: inherit;
 
-font:inherit;
+  border: none;
 
-border:none;
+  background: none;
 
-background:none;
-
-cursor:pointer;
-
+  cursor: pointer;
 }
 
-ul{
-
-list-style:none;
-
+ul {
+  list-style: none;
 }
 
-#root{
+#root {
+  width: 100%;
 
-width:100%;
-
-overflow:hidden;
-
+  overflow: hidden;
 }

@@ -1,57 +1,122 @@
+import { useEffect, useState } from "react";
 import styles from "./Gallery.module.css";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import Lightbox from "../../components/Lightbox/Lightbox";
+import { getGalleryImages } from "../../services/galleryService";
 
-const galleryImages = [
-  {
-    id: 1,
-    category: "Rings",
-    image: "https://via.placeholder.com/400x500?text=Ring",
-  },
-  {
-    id: 2,
-    category: "Necklaces",
-    image: "https://via.placeholder.com/400x500?text=Necklace",
-  },
-  {
-    id: 3,
-    category: "Earrings",
-    image: "https://via.placeholder.com/400x500?text=Earrings",
-  },
-  {
-    id: 4,
-    category: "Bracelets",
-    image: "https://via.placeholder.com/400x500?text=Bracelet",
-  },
-  {
-    id: 5,
-    category: "Pendants",
-    image: "https://via.placeholder.com/400x500?text=Pendant",
-  },
-  {
-    id: 6,
-    category: "Bangles",
-    image: "https://via.placeholder.com/400x500?text=Bangles",
-  },
+const categories = [
+  "All",
+  "Rings",
+  "Necklaces",
+  "Earrings",
+  "Bracelets",
+  "Pendants",
+  "Bangles",
 ];
 
 function Gallery() {
-  return (
-    <section className={styles.gallery}>
-      <div className={styles.heading}>
-        <p>OUR GALLERY</p>
-        <h1>Jewellery Showcase</h1>
-      </div>
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [currentIndex, setCurrentIndex] = useState(null);
 
-      <div className={styles.grid}>
-        {galleryImages.map((item) => (
-          <div className={styles.card} key={item.id}>
-            <img src={item.image} alt={item.category} />
-            <div className={styles.overlay}>
-              <h3>{item.category}</h3>
+  useEffect(() => {
+    async function fetchGallery() {
+      try {
+        const data = await getGalleryImages();
+        setGalleryImages(data);
+      } catch (error) {
+        console.error("Error loading gallery:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchGallery();
+  }, []);
+
+  const filteredImages =
+    selectedCategory === "All"
+      ? galleryImages
+      : galleryImages.filter((item) => item.category === selectedCategory);
+
+  if (loading) {
+    return <h2 style={{ textAlign: "center" }}>Loading Gallery...</h2>;
+  }
+
+  if (galleryImages.length === 0) {
+    return (
+      <>
+        <Breadcrumb
+          title="Gallery"
+          items={[{ label: "Home", link: "/" }, { label: "Gallery" }]}
+        />
+
+        <section className={styles.gallery}>
+          <h2>No gallery images found.</h2>
+        </section>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Breadcrumb
+        title="Gallery"
+        items={[{ label: "Home", link: "/" }, { label: "Gallery" }]}
+      />
+
+      <section className={styles.gallery}>
+        <div className={styles.heading}>
+          <p>OUR GALLERY</p>
+          <h1>Jewellery Showcase</h1>
+        </div>
+
+        <div className={styles.filters}>
+          {categories.map((category) => (
+            <button
+              key={category}
+              className={selectedCategory === category ? styles.active : ""}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        <div className={styles.grid}>
+          {filteredImages.map((item, index) => (
+            <div
+              className={styles.card}
+              key={item.id}
+              onClick={() => setCurrentIndex(index)}
+            >
+              <img src={item.imageUrl} alt={item.title} />
+
+              <div className={styles.overlay}>
+                <h3>{item.title}</h3>
+                <p>{item.category}</p>
+                <span>Click to View</span>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
+
+      <Lightbox
+        images={filteredImages}
+        currentIndex={currentIndex}
+        onClose={() => setCurrentIndex(null)}
+        onNext={() =>
+          setCurrentIndex((currentIndex + 1) % filteredImages.length)
+        }
+        onPrev={() =>
+          setCurrentIndex(
+            (currentIndex - 1 + filteredImages.length) % filteredImages.length,
+          )
+        }
+      />
+    </>
   );
 }
 
