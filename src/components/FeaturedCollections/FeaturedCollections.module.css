@@ -201,3 +201,17 @@
     font-size: 14px;
   }
 }
+
+@media (max-width: 576px){
+  .section {
+    padding: 50px 0;
+  }
+
+  .grid{
+    margin: 0 20px;
+  }
+
+  .heading {
+  margin: 0 auto 50px;
+}
+}

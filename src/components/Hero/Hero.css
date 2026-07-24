@@ -16,14 +16,13 @@
   position: absolute;
   inset: 0;
 
-  background: linear-gradient(to right,
-      rgba(255, 248, 246, 0.82) 0%,
-      /* Solid shade on the far left */
-      rgba(255, 248, 246, 0.65) 40%,
-      /* Soft transition zone */
-      transparent 70%
+  background: linear-gradient(
+    to right,
+    rgba(255, 248, 246, 0.82) 0%,
+    /* Solid shade on the far left */ rgba(255, 248, 246, 0.65) 40%,
+    /* Soft transition zone */ transparent 70%
       /* Fades out completely towards the right */
-    );
+  );
 }
 
 .hero-container {
@@ -44,7 +43,7 @@
 
   text-transform: uppercase;
 
-  color: #C98F7B;
+  color: #c98f7b;
 
   font-weight: 600;
 }
@@ -80,28 +79,28 @@
 .btn-primary {
   padding: 16px 34px;
   border-radius: 999px;
-  background: #C98F7B;
+  background: #c98f7b;
   color: #fff;
   text-decoration: none;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 14px 32px rgba(201, 143, 123, .28);
+  box-shadow: 0 14px 32px rgba(201, 143, 123, 0.28);
 }
 
 .btn-secondary {
   padding: 16px 34px;
   border-radius: 999px;
-  border: 1px solid #C98F7B;
-  color: #C98F7B;
+  border: 1px solid #c98f7b;
+  color: #c98f7b;
   text-decoration: none;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 .btn-secondary:hover {
-  background: #C98F7B;
+  background: #c98f7b;
   color: #fff;
 }
 
@@ -114,7 +113,7 @@
 
   animation: bounce 2s infinite;
 
-  color: #C98F7B;
+  color: #c98f7b;
 
   font-size: 22px;
 
@@ -122,7 +121,6 @@
 }
 
 @keyframes bounce {
-
   0%,
   20%,
   50%,
@@ -137,5 +135,47 @@
 
   60% {
     transform: translate(-50%, -5px);
+  }
+}
+
+/* ================= Mobile (576px) ================= */
+
+@media (max-width: 576px) {
+  .hero-subtitle {
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+
+  .hero h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+  }
+
+  .btn-secondary {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+/* ================= Small Mobile (400px) ================= */
+
+@media (max-width: 376px) {
+  .hero {
+    padding: 90px 0 60px;
+  }
+
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    font-size: 14px;
+    padding: 14px 18px;
   }
 }
