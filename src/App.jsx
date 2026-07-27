@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 
 import Home from "./pages/Home/Home";
-import Products from "./pages/Products/Products";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
@@ -42,11 +41,10 @@ function App() {
         {/* Website */}
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/collections" element={<Products />} />
+          <Route path="/collections" element={<Collections />} />
           <Route path="/products/:slug" element={<ProductDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          {/* <Route path="/collections" element={<Collections />} /> */}
           <Route path="/gallery" element={<Gallery />} />
           {/* <Route path="/about" element={<About />} /> */}
         </Route>

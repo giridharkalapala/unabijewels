@@ -1,46 +1,231 @@
+.card {
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.12);
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 24px;
+  transition: .4s;
+}
+
+.card:hover::after {
+  box-shadow: inset 0 0 0 1px rgba(201,143,123,.25);
+}
+
+/* ================= Image ================= */
+
+.imageWrapper {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+
+.card:hover img {
+  transform: scale(1.08);
+}
+
+/* ================= Category Badge ================= */
+
+.categoryBadge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+
+  padding: 8px 16px;
+
+  border-radius: 30px;
+
+  background: rgba(255,255,255,.92);
+
+  backdrop-filter: blur(10px);
+
+  color: #c98f7b;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  z-index: 5;
+}
+
+/* ================= Wishlist ================= */
+
+.favoriteBtn {
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,.95);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 20px;
+
+  transition: .3s;
+
+  z-index: 5;
+}
+
+.favoriteBtn:hover {
+  background: #c98f7b;
+  color: white;
+}
+
+/* ================= Overlay ================= */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: flex-end;
+
+  padding-bottom: 28px;
+
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.55),
+    transparent
+  );
+
+  opacity: 0;
+
+  transition: .35s;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+/* ================= Button ================= */
+
+.viewButton {
+  background: white;
+
+  color: #c98f7b;
+
+  padding: 14px 28px;
+
+  border-radius: 50px;
+
+  font-weight: 600;
+
+  transition: .3s;
+}
+
+.viewButton:hover {
+  background: #c98f7b;
+  color: white;
+}
+
+/* ================= Content ================= */
+
+.info {
+  padding: 24px;
+  text-align: center;
+}
+
+.info h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.category {
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+/* ================= Responsive ================= */
+
+@media (max-width:992px){
+
+.info h3{
+font-size:24px;
+}
+
+}
+
+@media (max-width:768px){
+
 .card{
-    background:#fff;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-    transition:.3s;
-}
-
-.card:hover{
-    transform:translateY(-8px);
-}
-
-.card img{
-    width:100%;
-    height:340px;
-    object-fit:cover;
+border-radius:18px;
 }
 
 .info{
-    padding:20px;
-}
-
-.category{
-    color:#C98F7B;
-    font-size:14px;
-    text-transform:uppercase;
-    letter-spacing:2px;
+padding:20px;
 }
 
 .info h3{
-    margin:12px 0 20px;
+font-size:22px;
 }
 
-.info button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:30px;
-    background:#C98F7B;
-    cursor:pointer;
+.categoryBadge{
+padding:6px 14px;
+font-size:12px;
 }
 
-.info button a{
-    color:white;
-    text-decoration:none;
+.favoriteBtn{
+width:38px;
+height:38px;
+font-size:18px;
+}
+
+.viewButton{
+padding:12px 24px;
+font-size:14px;
+}
+
+}
+
+@media (max-width:480px){
+
+.info h3{
+font-size:20px;
+}
+
+.categoryBadge{
+top:12px;
+left:12px;
+}
+
+.favoriteBtn{
+top:12px;
+right:12px;
+}
+
 }

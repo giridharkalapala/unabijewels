@@ -93,3 +93,35 @@ export async function getRelatedProducts(categoryId, currentProductId) {
 
   return data.map(withImageUrl);
 }
+
+// Get All Products
+export async function getAllProducts() {
+  const { data, error } = await supabase
+    .from("products")
+    .select(`
+      *,
+      categories (
+        id,
+        name,
+        slug
+      )
+    `)
+    .eq("is_active", true)
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+
+  return data.map(withImageUrl);
+}
+
+// Get All Categories
+export async function getAllCategories() {
+  const { data, error } = await supabase
+    .from("categories")
+    .select("id, name")
+    .order("name", { ascending: true });
+
+  if (error) throw error;
+
+  return data;
+}

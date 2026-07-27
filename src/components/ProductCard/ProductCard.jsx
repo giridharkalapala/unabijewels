@@ -1,21 +1,39 @@
 import { Link } from "react-router-dom";
 import styles from "./ProductCard.module.css";
-
+import { FiHeart } from "react-icons/fi";
 function ProductCard({ product }) {
   return (
     <div className={styles.card}>
-      <img src={product.image} alt={product.name} />
+      <div className={styles.imageWrapper}>
+        <img
+          src={product.imageUrl || product.image}
+          alt={product.name}
+        />
 
-      <div className={styles.info}>
-        <span className={styles.category}>{product.category}</span>
+        <span className={styles.categoryBadge}>
+          {product.categories?.name || product.category}
+        </span>
 
-        <h3>{product.name}</h3>
+        <button className={styles.favoriteBtn}>
+          <FiHeart />
+        </button>
 
-        <button>
-          <Link to={`/products/${product.slug}`}>
+        <div className={styles.overlay}>
+          <Link
+            to={`/products/${product.slug}`}
+            className={styles.viewButton}
+          >
             View Details
           </Link>
-        </button>
+        </div>
+      </div>
+
+      <div className={styles.info}>
+        <h3>{product.name}</h3>
+
+        <p className={styles.category}>
+          {product.categories?.name || product.category}
+        </p>
       </div>
     </div>
   );

@@ -85,43 +85,76 @@ function ProductDetails() {
 
           <div className={styles.content}>
             <span className={styles.category}>{product.categories?.name}</span>
+            <div className={styles.badges}>
+              <span className={styles.premiumBadge}>✨ Premium Collection</span>
+
+              <span className={styles.handcrafted}>Handmade</span>
+            </div>
 
             <h1>{product.name}</h1>
 
             <p className={styles.description}>{product.description}</p>
 
-            <div className={styles.infoGrid}>
-              <div className={styles.infoCard}>
-                <span>Material</span>
-                <strong>{product.material}</strong>
-              </div>
+            <div className={styles.highlights}>
+              <div>💎 Premium Finish</div>
+              <div>🛡 Anti-Tarnish</div>
+              <div>🌸 Lightweight Design</div>
+              <div>🎁 Perfect Gift Choice</div>
+            </div>
 
-              <div className={styles.infoCard}>
-                <span>Category</span>
-                <strong>{product.categories?.name}</strong>
-              </div>
+            <hr className={styles.divider} />
 
-              <div className={styles.infoCard}>
-                <span>Quality</span>
-                <strong>Premium</strong>
-              </div>
+            <div className={styles.infoSection}>
+              <h3>Product Information</h3>
 
-              <div className={styles.infoCard}>
-                <span>Availability</span>
-                <strong>Made to Order</strong>
+              <div className={styles.infoGrid}>
+                <div className={styles.infoItem}>
+                  <span>Category</span>
+                  <strong>{product.categories?.name || "Jewellery"}</strong>
+                </div>
+
+                <div className={styles.infoItem}>
+                  <span>Material</span>
+                  <strong>{product.material || "Premium Material"}</strong>
+                </div>
+
+                <div className={styles.infoItem}>
+                  <span>Finish</span>
+                  <strong>{product.finish || "High Polish"}</strong>
+                </div>
+
+                <div className={styles.infoItem}>
+                  <span>Style</span>
+                  <strong>{product.style || "Minimalist"}</strong>
+                </div>
+
+                <div className={styles.infoItem}>
+                  <span>Occasion</span>
+                  <strong>{product.occasion || "Everyday Wear"}</strong>
+                </div>
               </div>
             </div>
 
+            <div className={styles.careSection}>
+              <h3>Jewellery Care</h3>
+
+              <ul>
+                <li>Store in a clean and dry place.</li>
+                <li>Avoid direct contact with perfumes and chemicals.</li>
+                <li>Clean gently using a soft microfiber cloth.</li>
+                <li>Handle with care to preserve its finish.</li>
+              </ul>
+            </div>
+
             <div className={styles.features}>
-              <div>✔ Premium Craftsmanship</div>
-              <div>✔ Hallmark Jewellery</div>
-              <div>✔ Custom Orders Available</div>
               <div>✔ Secure Packaging</div>
             </div>
 
             <div className={styles.buttons}>
               <a
-                href="https://wa.me/919876543210"
+                href={`https://wa.me/919876543210?text=${encodeURIComponent(
+                  `Hello, I'm interested in "${product.name}". Could you please share more details?`,
+                )}`}
                 target="_blank"
                 rel="noreferrer"
                 className={styles.whatsapp}
@@ -137,11 +170,19 @@ function ProductDetails() {
         </div>
       </section>
 
+      <div className={styles.sectionDivider}></div>
+
       {relatedProducts.length > 0 && (
         <section className={styles.relatedSection}>
           <div className={styles.relatedHeader}>
-            <span>You May Also Like</span>
+            <p>EXPLORE MORE</p>
+
             <h2>Related Jewellery</h2>
+
+            <span>
+              Discover more timeless pieces carefully selected from the same
+              collection.
+            </span>
           </div>
 
           <div className={styles.relatedGrid}>
