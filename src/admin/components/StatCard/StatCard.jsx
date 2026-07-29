@@ -1,10 +1,19 @@
 import "./StatCard.css";
 
-function StatCard({ title, value }) {
+function StatCard({ title, value, icon, color }) {
   return (
     <div className="stat-card">
-      <h4>{title}</h4>
-      <h2>{value}</h2>
+      <div
+        className="stat-icon"
+        style={{ background: color }}
+      >
+        {icon}
+      </div>
+
+      <div className="stat-content">
+        <h2>{value}</h2>
+        <p>{title}</p>
+      </div>
     </div>
   );
 }

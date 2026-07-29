@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./Contact.module.css";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import { submitEnquiry } from "../../services/enquiryService";
+import { sendEnquiryEmail } from "../../services/emailService";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -31,7 +32,11 @@ function Contact() {
     setError("");
 
     try {
+      // Save to Supabase
       await submitEnquiry(formData);
+
+      // Send email
+      await sendEnquiryEmail(formData);
 
       setSuccess(true);
 
@@ -49,6 +54,7 @@ function Contact() {
       setLoading(false);
     }
   }
+
 
   return (
     <>
@@ -186,7 +192,14 @@ function Contact() {
               className={styles.submitButton}
               disabled={loading}
             >
-              {loading ? "Sending..." : "Send Message"}
+              {loading ? (
+                <>
+                  <span className={styles.spinner}></span>
+                  Sending...
+                </>
+              ) : (
+                "Send Message"
+              )}
             </button>
 
             {success && (

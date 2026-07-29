@@ -1,0 +1,96 @@
+.recent-enquiries {
+  margin-top: 60px;
+}
+
+.enquiry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.enquiry-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px 26px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  border: 1px solid #f1e6e0;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,.05);
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+
+  background: #c98f7b;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+.details {
+  flex: 1;
+}
+
+.details h4 {
+  margin: 0;
+  color: #222;
+}
+
+.details p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.details small {
+  color: #999;
+}
+
+.view-btn {
+  text-decoration: none;
+  background: #c98f7b;
+  color: white;
+  padding: 6px 18px;
+  border-radius: 30px;
+  transition: .3s;
+  margin-right: 10px;
+}
+
+.view-btn:hover {
+  background: #b77b67;
+}
+
+.empty {
+  color: #777;
+}
+
+@media(max-width:768px){
+
+.enquiry-card{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.view-btn{
+
+width:100%;
+
+text-align:center;
+
+}
+
+}

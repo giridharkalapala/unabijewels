@@ -125,3 +125,38 @@ export async function getAllCategories() {
 
   return data;
 }
+
+
+// Get Products by Category Slug
+export async function getProductsByCategorySlug(slug) {
+  // Get the category
+  const { data: category, error: categoryError } = await supabase
+    .from("categories")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  if (categoryError) throw categoryError;
+
+  // Get products in that category
+  const { data: products, error: productsError } = await supabase
+    .from("products")
+    .select(`
+      *,
+      categories (
+        id,
+        name,
+        slug
+      )
+    `)
+    .eq("category_id", category.id)
+    .eq("is_active", true)
+    .order("created_at", { ascending: false });
+
+  if (productsError) throw productsError;
+
+  return {
+    category,
+    products: products.map(withImageUrl),
+  };
+}

@@ -32,6 +32,7 @@ import EditTestimonial from "./admin/Testimonials/EditTestimonial/EditTestimonia
 import EnquiryList from "./admin/Enquiries/EnquiryList/EnquiryList";
 import ViewEnquiry from "./admin/Enquiries/ViewEnquiry/ViewEnquiry";
 import WebsiteSettings from "./admin/WebsiteSettings/WebsiteSettings";
+import CategoryProducts from "./pages/CategoryProducts/CategoryProducts";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/collections" element={<Collections />} />
+          <Route path="/collections/:slug" element={<CategoryProducts />} />
           <Route path="/products/:slug" element={<ProductDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

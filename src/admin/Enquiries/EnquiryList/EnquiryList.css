@@ -33,7 +33,7 @@ table{
 
 th,
 td{
-    padding:15px;
+    padding:13px;
     border-bottom:1px solid #eee;
     text-align:left;
 }
@@ -55,12 +55,12 @@ td{
     color:#1E40AF;
 }
 
-.view-btn{
+/* .view-btn{
     color:#2563EB;
     text-decoration:none;
     font-weight:600;
     margin-right:15px;
-}
+} */
 
 .delete-btn{
     background:none;

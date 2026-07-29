@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import styles from "./Collections.module.css";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
@@ -10,11 +11,14 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import SkeletonCard from "../../components/SkeletonCard/SkeletonCard";
 
 function Collections() {
+  const [searchParams] = useSearchParams();
+
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
+  const initialCategory = searchParams.get("category");
   const [category, setCategory] = useState("All");
   const [sortBy, setSortBy] = useState("Newest");
   const [visibleProducts, setVisibleProducts] = useState(8);
@@ -43,6 +47,35 @@ function Collections() {
     setVisibleProducts(8);
   }, [search, category]);
 
+  useEffect(() => {
+    if (!initialCategory || categories.length === 0) return;
+
+    const selected = categories.find((cat) => cat.slug === initialCategory);
+
+    if (selected) {
+      setCategory(selected.name);
+    }
+  }, [initialCategory, categories]);
+
+  if (loading) {
+    return (
+      <>
+        <Breadcrumb
+          title="Our Collection"
+          items={[{ label: "Home", link: "/" }, { label: "Collections" }]}
+        />
+
+        <section className={styles.products}>
+          <div className={styles.grid}>
+            {[...Array(8)].map((_, index) => (
+              <SkeletonCard key={index} />
+            ))}
+          </div>
+        </section>
+      </>
+    );
+  }
+
   const filteredProducts = products
     .filter((product) => {
       const matchesCategory =
@@ -68,24 +101,6 @@ function Collections() {
       }
     });
 
-  if (loading) {
-    return (
-      <>
-        <Breadcrumb
-          title="Our Collection"
-          items={[{ label: "Home", link: "/" }, { label: "Collections" }]}
-        />
-
-        <section className={styles.products}>
-          <div className={styles.grid}>
-            {[...Array(8)].map((_, index) => (
-              <SkeletonCard key={index} />
-            ))}
-          </div>
-        </section>
-      </>
-    );
-  }
 
   return (
     <>

@@ -52,16 +52,19 @@ function FeaturedCollections() {
 
               <p>{item.description}</p>
 
-              <Link to={`/collections/${item.slug}`} className={styles.button}>
+              <Link
+                to={`/collections?category=${encodeURIComponent(item.slug)}`}
+                className={styles.button}
+              >
                 View Collection →
               </Link>
             </div>
           </div>
         ))}
       </div>
-      <div className={styles.viewAll}>
+      {/* <div className={styles.viewAll}>
         <Link to="/collections">View All Collections →</Link>
-      </div>
+      </div> */}
     </section>
   );
 }

@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { supabase } from "../../../lib/supabase";
 import "./ProductList.css";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal";
+import ProductTable from "../ProductTable/ProductTable";
+import ProductPreviewModal from "../../components/ProductPreviewModal/ProductPreviewModal";
 
 function ProductList() {
+  const [previewProduct, setPreviewProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -104,6 +107,12 @@ function ProductList() {
         onConfirm={handleDelete}
       />
 
+      <ProductPreviewModal
+        open={!!previewProduct}
+        product={previewProduct}
+        onClose={() => setPreviewProduct(null)}
+      />
+
       <div className="top-bar">
         <h2>Products</h2>
 
@@ -142,86 +151,11 @@ function ProductList() {
           <p>Add your first product.</p>
         </div>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Material</th>
-              <th>Price</th>
-              {/* <th>Featured</th> */}
-              <th>New</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredProducts.map((product) => (
-              <tr key={product.id}>
-                <td>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="thumb"
-                  />
-                </td>
-
-                <td>
-                  <div className="product-info">
-                    <strong>{product.name}</strong>
-
-                    <small>{product.material}</small>
-                  </div>
-                </td>
-
-                <td>{product.categories?.name}</td>
-
-                <td>{product.material}</td>
-
-                <td>₹{product.price || "-"}</td>
-
-                <td>
-                  <div className="status-group">
-                    {product.featured && (
-                      <span className="badge featured">⭐ Featured</span>
-                    )}
-
-                    {product.new_arrival && (
-                      <span className="badge new">🆕 New</span>
-                    )}
-
-                    <span
-                      className={`badge ${
-                        product.is_active ? "active" : "inactive"
-                      }`}
-                    >
-                      {product.is_active ? "🟢 Active" : "🔴 Inactive"}
-                    </span>
-                  </div>
-                </td>
-
-                <td>
-                  <div className="actions">
-                    <Link
-                      to={`/admin/products/edit/${product.id}`}
-                      className="edit"
-                    >
-                      ✏️ Edit
-                    </Link>
-
-                    <button
-                      className="delete"
-                      onClick={() => setDeleteProduct(product)}
-                    >
-                      🗑 Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ProductTable
+          products={filteredProducts}
+          onDelete={setDeleteProduct}
+          onPreview={setPreviewProduct}
+        />
       )}
     </div>
   );
