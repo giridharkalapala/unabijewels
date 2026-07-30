@@ -5,6 +5,7 @@ import "./ProductList.css";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal";
 import ProductTable from "../ProductTable/ProductTable";
 import ProductPreviewModal from "../../components/ProductPreviewModal/ProductPreviewModal";
+import ProductPagination from "../ProductPagination/ProductPagination";
 
 function ProductList() {
   const [previewProduct, setPreviewProduct] = useState(null);
@@ -16,30 +17,50 @@ function ProductList() {
   const [deleteProduct, setDeleteProduct] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
+  const ITEMS_PER_PAGE = 10;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalProducts, setTotalProducts] = useState(0);
+
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [featuredFilter, setFeaturedFilter] = useState("all");
+  const [newArrivalFilter, setNewArrivalFilter] = useState("all");
+  const [sortBy, setSortBy] = useState("newest");
+
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [bulkAction, setBulkAction] = useState("");
+
   useEffect(() => {
     fetchProducts();
+  }, [currentPage]);
+
+  useEffect(() => {
     fetchCategories();
   }, []);
 
   async function fetchProducts() {
     setLoading(true);
 
-    const { data, error } = await supabase
+    const from = (currentPage - 1) * ITEMS_PER_PAGE;
+    const to = from + ITEMS_PER_PAGE - 1;
+
+    const { data, count, error } = await supabase
       .from("products")
       .select(
         `
         *,
-        categories (
-          name
-        )
+        categories(name)
       `,
+        { count: "exact" },
       )
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .range(from, to);
 
     if (error) {
       console.error(error.message);
     } else {
       setProducts(data || []);
+      setTotalProducts(count || 0);
     }
 
     setLoading(false);
@@ -81,16 +102,58 @@ function ProductList() {
     fetchProducts();
   }
 
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
+  const filteredProducts = [...products]
+    .filter((product) => {
+      const matchesSearch = product.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-    const matchesCategory =
-      selectedCategory === "" || product.category_id === selectedCategory;
+      const matchesCategory =
+        selectedCategory === "" || product.category_id === selectedCategory;
 
-    return matchesSearch && matchesCategory;
-  });
+      const matchesStatus =
+        statusFilter === "all" ||
+        (statusFilter === "active" && product.is_active) ||
+        (statusFilter === "inactive" && !product.is_active);
+
+      const matchesFeatured =
+        featuredFilter === "all" ||
+        (featuredFilter === "featured" && product.featured) ||
+        (featuredFilter === "not-featured" && !product.featured);
+
+      const matchesNew =
+        newArrivalFilter === "all" ||
+        (newArrivalFilter === "new" && product.new_arrival) ||
+        (newArrivalFilter === "old" && !product.new_arrival);
+
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesStatus &&
+        matchesFeatured &&
+        matchesNew
+      );
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "oldest":
+          return new Date(a.created_at) - new Date(b.created_at);
+
+        case "az":
+          return a.name.localeCompare(b.name);
+
+        case "za":
+          return b.name.localeCompare(a.name);
+
+        default:
+          return new Date(b.created_at) - new Date(a.created_at);
+      }
+    });
+
+  function handleBulkAction() {
+    console.log("Action:", bulkAction);
+    console.log("Products:", selectedProducts);
+  }
 
   return (
     <div className="product-list">
@@ -113,9 +176,17 @@ function ProductList() {
         onClose={() => setPreviewProduct(null)}
       />
 
-      <div className="top-bar">
-        <h2>Products</h2>
+      <div className="page-header">
+        <div>
+          <h2>Products</h2>
+          <p>
+            Manage your jewellery collection with search, filters and quick
+            actions.
+          </p>
+        </div>
+      </div>
 
+      <div className="toolbar">
         <input
           type="text"
           placeholder="🔍 Search products..."
@@ -137,6 +208,53 @@ function ProductList() {
             </option>
           ))}
         </select>
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="all">All Status</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+
+        <select
+          value={featuredFilter}
+          onChange={(e) => setFeaturedFilter(e.target.value)}
+        >
+          <option value="all">Featured</option>
+          <option value="featured">Featured</option>
+          <option value="not-featured">Not Featured</option>
+        </select>
+
+        <select
+          value={newArrivalFilter}
+          onChange={(e) => setNewArrivalFilter(e.target.value)}
+        >
+          <option value="all">New Arrival</option>
+          <option value="new">New Arrival</option>
+          <option value="old">Regular</option>
+        </select>
+
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="az">A–Z</option>
+          <option value="za">Z–A</option>
+        </select>
+
+        <button
+          className="clear-btn"
+          onClick={() => {
+            setSearch("");
+            setSelectedCategory("");
+            setStatusFilter("all");
+            setFeaturedFilter("all");
+            setNewArrivalFilter("all");
+            setSortBy("newest");
+          }}
+        >
+          Reset Filters
+        </button>
 
         <Link to="/admin/products/add" className="add-btn">
           + Add Product
@@ -151,11 +269,49 @@ function ProductList() {
           <p>Add your first product.</p>
         </div>
       ) : (
-        <ProductTable
-          products={filteredProducts}
-          onDelete={setDeleteProduct}
-          onPreview={setPreviewProduct}
-        />
+        <>
+          <div className="bulk-toolbar">
+            <select
+              value={bulkAction}
+              onChange={(e) => setBulkAction(e.target.value)}
+            >
+              <option value="">Bulk Actions</option>
+              <option value="delete">Delete Selected</option>
+              <option value="feature">Mark Featured</option>
+              <option value="unfeature">Remove Featured</option>
+              <option value="new">Mark New Arrival</option>
+              <option value="old">Remove New Arrival</option>
+              <option value="active">Activate</option>
+              <option value="inactive">Deactivate</option>
+            </select>
+
+            <button
+              onClick={handleBulkAction}
+              disabled={selectedProducts.length === 0 || bulkAction === ""}
+            >
+              Apply
+            </button>
+
+            <span>
+              {selectedProducts.length}
+              selected
+            </span>
+          </div>
+          
+          <ProductTable
+            products={filteredProducts}
+            onDelete={setDeleteProduct}
+            onPreview={setPreviewProduct}
+            selectedProducts={selectedProducts}
+            setSelectedProducts={setSelectedProducts}
+          />
+
+          <ProductPagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(totalProducts / ITEMS_PER_PAGE)}
+            onPageChange={setCurrentPage}
+          />
+        </>
       )}
     </div>
   );

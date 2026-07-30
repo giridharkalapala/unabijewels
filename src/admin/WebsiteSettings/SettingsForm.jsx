@@ -138,7 +138,7 @@ function SettingsForm() {
                     : form.logo
                 }
                 alt="Logo Preview"
-                className="preview-image"
+                className="preview-images"
               />
             )}
           </div>

@@ -1,11 +1,34 @@
 import { Link } from "react-router-dom";
 import "./ProductTable.css";
 
-function ProductTable({ products, onDelete, onPreview }) {
+function ProductTable({
+  products,
+  onDelete,
+  onPreview,
+  selectedProducts,
+  setSelectedProducts,
+}) {
   return (
+    
     <table className="products-table">
       <thead>
         <tr>
+          <th>
+            <input
+              type="checkbox"
+              checked={
+                products.length > 0 &&
+                selectedProducts.length === products.length
+              }
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setSelectedProducts(products.map((p) => p.id));
+                } else {
+                  setSelectedProducts([]);
+                }
+              }}
+            />
+          </th>
           <th>ID</th>
           <th>Image</th>
           <th>Product</th>
@@ -22,7 +45,7 @@ function ProductTable({ products, onDelete, onPreview }) {
           <tr key={product.id}>
             <td className="product-id">#{String(product.id).slice(0, 6)}</td>
 
-            <td>
+            <td className="created">
               <img src={product.image} alt={product.name} className="thumb" />
             </td>
 
@@ -34,7 +57,7 @@ function ProductTable({ products, onDelete, onPreview }) {
               </div>
             </td>
 
-            <td>{product.categories?.name}</td>
+            <td className="created">{product.categories?.name}</td>
 
             <td className="price">
               ₹
@@ -43,7 +66,7 @@ function ProductTable({ products, onDelete, onPreview }) {
                 : "-"}
             </td>
 
-            <td>
+            <td className="created">
               <div className="status-group">
                 {product.featured && (
                   <span className="badge featured">⭐ Featured</span>
@@ -63,9 +86,9 @@ function ProductTable({ products, onDelete, onPreview }) {
               </div>
             </td>
 
-            <td>{new Date(product.created_at).toLocaleDateString("en-IN")}</td>
+            <td className="created">{new Date(product.created_at).toLocaleDateString("en-IN")}</td>
 
-            <td>
+            <td className="created">
               <div className="actions">
                 <button className="view" onClick={() => onPreview(product)}>
                   👁

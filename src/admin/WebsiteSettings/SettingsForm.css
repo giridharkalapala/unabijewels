@@ -71,7 +71,7 @@ input[type=file]{
 
 /* ---------- Preview ---------- */
 
-.preview-image{
+.preview-images{
     margin-top:15px;
     width:150px;
     height:150px;
@@ -133,7 +133,7 @@ input[type=file]{
         width:100%;
     }
 
-    .preview-image{
+    .preview-images{
         width:120px;
         height:120px;
     }
