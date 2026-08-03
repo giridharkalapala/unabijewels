@@ -6,6 +6,7 @@ import DeleteModal from "../../../components/DeleteModal/DeleteModal";
 import ProductTable from "../ProductTable/ProductTable";
 import ProductPreviewModal from "../../components/ProductPreviewModal/ProductPreviewModal";
 import ProductPagination from "../ProductPagination/ProductPagination";
+import { exportProducts } from "../../../utils/exportProducts";
 
 function ProductList() {
   const [previewProduct, setPreviewProduct] = useState(null);
@@ -29,6 +30,7 @@ function ProductList() {
 
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [bulkAction, setBulkAction] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     fetchProducts();
@@ -53,6 +55,7 @@ function ProductList() {
       `,
         { count: "exact" },
       )
+      .is("deleted_at", null)
       .order("created_at", { ascending: false })
       .range(from, to);
 
@@ -87,7 +90,9 @@ function ProductList() {
 
     const { error } = await supabase
       .from("products")
-      .delete()
+      .update({
+        deleted_at: new Date().toISOString(),
+      })
       .eq("id", deleteProduct.id);
 
     setDeleting(false);
@@ -150,9 +155,94 @@ function ProductList() {
       }
     });
 
-  function handleBulkAction() {
-    console.log("Action:", bulkAction);
-    console.log("Products:", selectedProducts);
+  async function handleBulkAction() {
+    if (selectedProducts.length === 0) {
+      alert("Please select at least one product.");
+      return;
+    }
+
+    try {
+      switch (bulkAction) {
+        case "delete":
+          if (!window.confirm(`Delete ${selectedProducts.length} products?`)) {
+            return;
+          }
+
+          await supabase.from("products").delete().in("id", selectedProducts);
+
+          break;
+
+        case "delete":
+          await supabase.from("products").delete().in("id", selectedProducts);
+          break;
+
+        case "feature":
+          await supabase
+            .from("products")
+            .update({ featured: true })
+            .in("id", selectedProducts);
+          break;
+
+        case "unfeature":
+          await supabase
+            .from("products")
+            .update({ featured: false })
+            .in("id", selectedProducts);
+          break;
+
+        case "new":
+          await supabase
+            .from("products")
+            .update({ new_arrival: true })
+            .in("id", selectedProducts);
+          break;
+
+        case "old":
+          await supabase
+            .from("products")
+            .update({ new_arrival: false })
+            .in("id", selectedProducts);
+          break;
+
+        case "active":
+          await supabase
+            .from("products")
+            .update({ is_active: true })
+            .in("id", selectedProducts);
+          break;
+
+        case "inactive":
+          await supabase
+            .from("products")
+            .update({ is_active: false })
+            .in("id", selectedProducts);
+          break;
+
+        default:
+          return;
+      }
+
+      setSelectedProducts([]);
+      setBulkAction("");
+
+      fetchProducts();
+      setMessage("Bulk action completed successfully!");
+
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+    } catch (error) {
+      console.error(error);
+      alert("Bulk action failed.");
+    }
+  }
+
+  function handleExport() {
+    const selected = products.filter((product) =>
+      selectedProducts.includes(product.id),
+    );
+
+    exportProducts(selected);
   }
 
   return (
@@ -270,34 +360,51 @@ function ProductList() {
         </div>
       ) : (
         <>
+          {message && <div className="success-message">{message}</div>}
           <div className="bulk-toolbar">
-            <select
-              value={bulkAction}
-              onChange={(e) => setBulkAction(e.target.value)}
-            >
-              <option value="">Bulk Actions</option>
-              <option value="delete">Delete Selected</option>
-              <option value="feature">Mark Featured</option>
-              <option value="unfeature">Remove Featured</option>
-              <option value="new">Mark New Arrival</option>
-              <option value="old">Remove New Arrival</option>
-              <option value="active">Activate</option>
-              <option value="inactive">Deactivate</option>
-            </select>
+            <div className="bulk-left">
+              <span className="selected-count">
+                {selectedProducts.length} Selected
+              </span>
+
+              <select
+                value={bulkAction}
+                onChange={(e) => setBulkAction(e.target.value)}
+              >
+                <option value="">Bulk Actions</option>
+
+                <option value="feature">⭐ Mark Featured</option>
+
+                <option value="unfeature">Remove Featured</option>
+
+                <option value="new">🆕 Mark New Arrival</option>
+
+                <option value="old">Remove New Arrival</option>
+
+                <option value="active">Activate</option>
+
+                <option value="inactive">Deactivate</option>
+
+                <option value="delete">Delete</option>
+              </select>
+
+              <button
+                onClick={handleBulkAction}
+                disabled={selectedProducts.length === 0 || bulkAction === ""}
+              >
+                Apply
+              </button>
+            </div>
 
             <button
-              onClick={handleBulkAction}
-              disabled={selectedProducts.length === 0 || bulkAction === ""}
+              className="export-btn"
+              onClick={handleExport}
+              disabled={selectedProducts.length === 0}
             >
-              Apply
+              Export CSV
             </button>
-
-            <span>
-              {selectedProducts.length}
-              selected
-            </span>
           </div>
-          
+
           <ProductTable
             products={filteredProducts}
             onDelete={setDeleteProduct}

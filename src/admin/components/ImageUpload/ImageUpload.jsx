@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { supabase } from "../../../lib/supabase";
+import { uploadImage } from "../../../services/uploadService";
 import "./ImageUpload.css";
 
 function ImageUpload({ value, onUpload, bucket = "products" }) {
@@ -29,41 +29,20 @@ function ImageUpload({ value, onUpload, bucket = "products" }) {
 
     setUploading(true);
 
-    const fileName = `${Date.now()}-${file.name}`;
+    try {
+      const publicUrl = await uploadImage(file, bucket);
 
-    const { data: uploadData, error } = await supabase.storage
-      .from(bucket)
-      .upload(fileName, file);
-
-    console.log("Upload Data:", uploadData);
-    console.log("Upload Error:", error);
-
-    if (error) {
+      onUpload(publicUrl);
+    } catch (error) {
       alert(error.message);
+    } finally {
       setUploading(false);
-      return;
     }
-
-    const {
-      data: { publicUrl },
-    } = supabase.storage
-      .from(bucket)
-      .getPublicUrl(fileName);
-
-    console.log("Public URL:", publicUrl);
-
-    onUpload(publicUrl);
-
-    setUploading(false);
   }
 
   return (
     <div className="image-upload">
-
-      <div
-        className="upload-box"
-        onClick={() => fileInputRef.current.click()}
-      >
+      <div className="upload-box" onClick={() => fileInputRef.current.click()}>
         {preview ? (
           <img src={preview} alt="Preview" />
         ) : (
@@ -82,12 +61,7 @@ function ImageUpload({ value, onUpload, bucket = "products" }) {
         onChange={handleFileChange}
       />
 
-      {uploading && (
-        <p className="uploading">
-          Uploading...
-        </p>
-      )}
-
+      {uploading && <p className="uploading">Uploading...</p>}
     </div>
   );
 }

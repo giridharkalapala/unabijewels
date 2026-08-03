@@ -1,5 +1,10 @@
+/* ==========================================
+   Product Table
+========================================== */
+
 .products-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   background: #fff;
   border-radius: 22px;
@@ -11,65 +16,115 @@
   background: #faf7f5;
 }
 
-.products-table th {
-  padding:22px 20px;
-  text-align: left;
-  font-size: 14px;
-  color: #777;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
-}
-
+.products-table th,
 .products-table td {
-  padding:20px;
-  border-top: 1px solid #f2ece8;
+  padding: 20px;
   vertical-align: middle;
 }
 
+.products-table th {
+  font-size: 14px;
+  font-weight: 600;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.products-table td {
+  border-top: 1px solid #f2ece8;
+}
+
 .products-table tbody tr {
-  transition: 0.25s ease;
+  height: 110px;
+  transition: background 0.25s ease;
 }
 
 .products-table tbody tr:hover {
   background: #fffaf8;
 }
 
-/* =======================
+/* ==========================================
+   Column Widths
+========================================== */
+
+.checkbox-cell {
+  width: 55px;
+  text-align: center;
+}
+
+.checkbox-cell input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #c98f7b;
+}
+
+.products-table th:nth-child(1),
+.products-table td:nth-child(1) {
+  width: 55px;
+}
+
+.products-table th:nth-child(2),
+.products-table td:nth-child(2) {
+  width: 90px;
+}
+
+.products-table th:nth-child(3),
+.products-table td:nth-child(3) {
+  width: 110px;
+}
+
+.products-table th:nth-child(6),
+.products-table td:nth-child(6) {
+  width: 110px;
+}
+
+.products-table th:nth-child(8),
+.products-table td:nth-child(8) {
+  width: 120px;
+}
+
+.products-table th:last-child,
+.products-table td:last-child {
+  width: 170px;
+}
+
+/* ==========================================
    Product Image
-======================= */
+========================================== */
 
 .thumb {
   width: 82px;
   height: 82px;
   border-radius: 16px;
   object-fit: cover;
-  display: block;
-  transition: 0.3s;
+  object-position: center;
   border: 1px solid #f2ece8;
+  transition: transform 0.3s ease;
 }
 
 .thumb:hover {
   transform: scale(1.08);
 }
 
-/* =======================
+/* ==========================================
    Product Info
-======================= */
+========================================== */
 
 .product-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 70px;
   gap: 6px;
+  min-height: 82px;
 }
 
 .product-info strong {
   font-size: 16px;
   color: #222;
+  line-height: 1.4;
   margin: 0;
-  line-height: 1.3;
 }
 
 .product-info small {
@@ -77,38 +132,47 @@
   font-size: 13px;
   margin: 0;
 }
-.category-cell,
-.price,
-.created {
-  vertical-align: middle;
-  font-weight: 500;
+
+.product-id {
+  color: #999;
+  font-size: 13px;
+  font-weight: 600;
 }
 
+.category-cell,
 .created {
-  white-space: nowrap;
   color: #666;
   font-weight: 500;
+  white-space: nowrap;
 }
-/* =======================
+
+.price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #222;
+  white-space: nowrap;
+}
+
+/* ==========================================
    Status Badges
-======================= */
+========================================== */
 
 .status-group {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
-  min-height: 42px;
 }
 
 .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   padding: 6px 12px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  white-space: nowrap;
 }
 
 .featured {
@@ -131,27 +195,39 @@
   color: #d32f2f;
 }
 
-/* =======================
+/* ==========================================
    Action Buttons
-======================= */
+========================================== */
 
 .actions {
   display: flex;
-  gap: 10px;
+  justify-content: center;
   align-items: center;
+  gap: 10px;
 }
 
 .actions a,
 .actions button {
   width: 42px;
   height: 42px;
+  border: none;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.view {
+  background: #f2f4f7;
+  color: #555;
+}
+
+.view:hover {
+  background: #444;
+  color: #fff;
 }
 
 .edit {
@@ -174,9 +250,10 @@
   color: #fff;
 }
 
-/* =======================
+/* ==========================================
    Bulk Toolbar
-======================= */
+========================================== */
+
 .bulk-toolbar {
   display: flex;
   align-items: center;
@@ -187,18 +264,18 @@
 
 .bulk-toolbar select {
   padding: 12px 18px;
-  border-radius: 10px;
   border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .bulk-toolbar button {
   padding: 12px 24px;
   background: #c98f7b;
+  color: #fff;
   border: none;
   border-radius: 10px;
-  color: white;
-  cursor: pointer;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .bulk-toolbar button:disabled {
@@ -206,9 +283,9 @@
   cursor: not-allowed;
 }
 
-/* =======================
+/* ==========================================
    Responsive
-======================= */
+========================================== */
 
 @media (max-width: 992px) {
   .products-table {
@@ -219,46 +296,31 @@
 }
 
 @media (max-width: 768px) {
-  .thumb {
-    width: 55px;
-    height: 55px;
-  }
-
   .products-table th,
   .products-table td {
     padding: 14px;
   }
 
+  .thumb {
+    width: 60px;
+    height: 60px;
+  }
+
   .actions {
     flex-direction: column;
-    align-items: stretch;
   }
 
   .actions a,
   .actions button {
     width: 100%;
-    text-align: center;
   }
 }
 
-.product-id {
-  color: #999;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.price {
-  font-weight: 700;
-  color: #222;
-  white-space: nowrap;
-}
-
-.view {
-  background: #f2f4f7;
-  color: #555;
-}
-
-.view:hover {
-  background: #444;
-  color: white;
+.success-message{
+  margin:20px 0;
+  padding:15px 20px;
+  background:#e8f8ee;
+  color:#2e7d32;
+  border-radius:12px;
+  font-weight:600;
 }

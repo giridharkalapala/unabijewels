@@ -1,0 +1,59 @@
+.trash-page {
+  padding: 30px;
+}
+
+.trash-page h1 {
+  margin-bottom: 10px;
+}
+
+.trash-page p {
+  color: #777;
+  margin-bottom: 30px;
+}
+
+.empty-trash {
+  text-align: center;
+  padding: 80px;
+  background: white;
+  border-radius: 16px;
+}
+
+.trash-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.trash-table th,
+.trash-table td {
+  padding: 18px;
+  border-bottom: 1px solid #eee;
+}
+
+.trash-thumb {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.restore-btn,
+.delete-btn {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.restore-btn {
+  background: #2e7d32;
+  color: white;
+}
+
+.delete-btn {
+  background: #d32f2f;
+  color: white;
+}

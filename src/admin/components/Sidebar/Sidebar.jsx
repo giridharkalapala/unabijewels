@@ -13,6 +13,7 @@ function Sidebar() {
     { name: "Contact", path: "/admin/contact" },
     { name: "Site Settings", path: "/admin/settings" },
     { name: "Profile", path: "/admin/profile" },
+    { name: "Trash", path: "/admin/products/trash" },
   ];
 
   return (

@@ -33,6 +33,8 @@ import EnquiryList from "./admin/Enquiries/EnquiryList/EnquiryList";
 import ViewEnquiry from "./admin/Enquiries/ViewEnquiry/ViewEnquiry";
 import WebsiteSettings from "./admin/WebsiteSettings/WebsiteSettings";
 import CategoryProducts from "./pages/CategoryProducts/CategoryProducts";
+import Trash from "./admin/Products/Trash/Trash";
+
 
 
 function App() {
@@ -79,6 +81,8 @@ function App() {
           
           <Route path="settings"element={<WebsiteSettings />}/>
 
+          <Route path="/admin/products/trash" element={<Trash />} />
+          
         </Route>
 
         {/* 404 */}

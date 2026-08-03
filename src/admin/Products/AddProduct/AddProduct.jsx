@@ -27,6 +27,23 @@ function AddProduct() {
       return;
     }
 
+    if (product.gallery?.length > 0) {
+      const galleryRows = product.gallery.map((image, index) => ({
+        product_id: data.id,
+        image_url: image,
+        sort_order: index,
+      }));
+
+      const { error: galleryError } = await supabase
+        .from("product_images")
+        .insert(galleryRows);
+
+      if (galleryError) {
+        console.error(galleryError);
+        alert("Gallery images could not be saved.");
+      }
+    }
+
     setCategories(data || []);
   }
 
@@ -35,21 +52,24 @@ function AddProduct() {
 
     setLoading(true);
 
-    const { error } = await supabase.from("products").insert([
-      {
-        name: product.name,
-        slug: product.slug,
-        // category_id: product.category_id,
-        category_id: product.category_id || null,
-        material: product.material,
-        description: product.description,
-        image: product.image,
-        price: product.price || null,
-        featured: product.featured,
-        new_arrival: product.new_arrival,
-        is_active: product.is_active,
-      },
-    ]);
+    const { data, error } = await supabase
+      .from("products")
+      .insert([
+        {
+          name: product.name,
+          slug: product.slug,
+          category_id: product.category_id || null,
+          material: product.material,
+          description: product.description,
+          image: product.image, // Cover image
+          price: product.price || null,
+          featured: product.featured,
+          new_arrival: product.new_arrival,
+          is_active: product.is_active,
+        },
+      ])
+      .select()
+      .single();
 
     setLoading(false);
 

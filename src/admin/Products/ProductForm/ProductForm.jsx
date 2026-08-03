@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ProductForm.css";
 import ImageUpload from "../../components/ImageUpload/ImageUpload";
+import ImageGalleryUpload from "../../components/ImageGalleryUpload/ImageGalleryUpload";
 
 function ProductForm({
   initialData = {},
@@ -8,19 +9,6 @@ function ProductForm({
   onSubmit,
   loading = false,
 }) {
-  // const [formData, setFormData] = useState({
-  //   name: initialData.name || "",
-  //   slug: initialData.slug || "",
-  //   category_id: initialData.category_id || "",
-  //   material: initialData.material || "",
-  //   description: initialData.description || "",
-  //   image: initialData.image || "",
-  //   price: initialData.price || "",
-  //   featured: initialData.featured || false,
-  //   new_arrival: initialData.new_arrival || false,
-  //   is_active: initialData.is_active ?? true,
-  // });
-
   const [formData, setFormData] = useState(() => ({
     name: initialData.name || "",
     slug: initialData.slug || "",
@@ -28,49 +16,34 @@ function ProductForm({
     material: initialData.material || "",
     description: initialData.description || "",
     image: initialData.image || "",
+    gallery: initialData.gallery || [],
     price: initialData.price || "",
     featured: initialData.featured || false,
     new_arrival: initialData.new_arrival || false,
     is_active: initialData.is_active ?? true,
   }));
 
-  // useEffect(() => {
-  //   setFormData({
-  //     name: initialData.name || "",
-  //     slug: initialData.slug || "",
-  //     category_id: initialData.category_id || "",
-  //     material: initialData.material || "",
-  //     description: initialData.description || "",
-  //     image: initialData.image || "",
-  //     price: initialData.price || "",
-  //     featured: initialData.featured || false,
-  //     new_arrival: initialData.new_arrival || false,
-  //     is_active: initialData.is_active ?? true,
-  //   });
-  // }, [initialData]);
-
-
   const handleChange = (e) => {
-  const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target;
 
-  setFormData((prev) => {
-    const updated = {
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    };
+    setFormData((prev) => {
+      const updated = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      };
 
-    // Auto-generate slug while typing the product name
-    if (name === "name" && !initialData.id) {
-      updated.slug = value
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-");
-    }
+      // Auto-generate slug while typing the product name
+      if (name === "name" && !initialData.id) {
+        updated.slug = value
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9\s-]/g, "")
+          .replace(/\s+/g, "-");
+      }
 
-    return updated;
-  });
-};
+      return updated;
+    });
+  };
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -82,19 +55,14 @@ function ProductForm({
       <form className="product-form" onSubmit={submitForm}>
         <div className="grid">
           <div className="form-group">
-          <label>Product Name</label>
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-          {/* <div className="form-group">
             <label>Product Name</label>
-
-            <input name="name" defaultValue="" placeholder="Type here" />
-          </div> */}
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
           <div className="form-group">
             <label>Slug</label>
@@ -175,17 +143,21 @@ function ProductForm({
           />
         </div>
 
-        <div className="switches">
-          {/* <label>
-            <input
-              type="checkbox"
-              name="featured"
-              checked={formData.featured}
-              onChange={handleChange}
-            />
-            Featured
-          </label> */}
+        <div className="form-group">
+          <label>Gallery Images</label>
 
+          <ImageGalleryUpload
+            value={formData.gallery}
+            onUpload={(images) =>
+              setFormData((prev) => ({
+                ...prev,
+                gallery: images,
+              }))
+            }
+          />
+        </div>
+
+        <div className="switches">
           <label>
             <input
               type="checkbox"

@@ -1,0 +1,104 @@
+import { useRef, useState } from "react";
+import { uploadImage } from "../../../services/uploadService";
+import "./ImageGalleryUpload.css";
+
+function ImageGalleryUpload({
+  value = [],
+  onUpload,
+  bucket = "products",
+}) {
+  const [images, setImages] = useState(value);
+  const [uploading, setUploading] = useState(false);
+
+  const inputRef = useRef();
+
+  async function handleFiles(e) {
+    const files = Array.from(e.target.files);
+
+    if (!files.length) return;
+
+    setUploading(true);
+
+    try {
+      const uploaded = [];
+
+      for (const file of files) {
+        const url = await uploadImage(file, bucket);
+        uploaded.push(url);
+      }
+
+      const updatedImages = [...images, ...uploaded];
+
+      setImages(updatedImages);
+
+      onUpload(updatedImages);
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  function removeImage(index) {
+    const updated = images.filter((_, i) => i !== index);
+
+    setImages(updated);
+
+    onUpload(updated);
+  }
+
+  return (
+    <div className="gallery-upload">
+
+      <div
+        className="gallery-dropzone"
+        onClick={() => inputRef.current.click()}
+      >
+        <h3>📸 Upload Gallery Images</h3>
+
+        <p>
+          Click to upload multiple images
+        </p>
+      </div>
+
+      <input
+        ref={inputRef}
+        hidden
+        multiple
+        type="file"
+        accept="image/*"
+        onChange={handleFiles}
+      />
+
+      {uploading && (
+        <p className="gallery-uploading">
+          Uploading...
+        </p>
+      )}
+
+      <div className="gallery-grid">
+        {images.map((image, index) => (
+          <div
+            className="gallery-item"
+            key={index}
+          >
+            <img
+              src={image}
+              alt=""
+            />
+
+            <button
+              type="button"
+              onClick={() => removeImage(index)}
+            >
+              ✕
+            </button>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  );
+}
+
+export default ImageGalleryUpload;
