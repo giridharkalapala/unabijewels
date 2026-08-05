@@ -11,7 +11,7 @@ import Collections from "./pages/Collections/Collections";
 import Gallery from "./pages/Gallery/Gallery";
 
 // Admin
-import Login from "./admin/Login/Login";
+// import Login from "./admin/Login/Login";
 import Dashboard from "./admin/Dashboard/Dashboard";
 import ManageProducts from "./admin/ManageProducts/ManageProducts";
 // import AddProduct from "./admin/AddProduct/AddProduct";
@@ -35,7 +35,8 @@ import WebsiteSettings from "./admin/WebsiteSettings/WebsiteSettings";
 import CategoryProducts from "./pages/CategoryProducts/CategoryProducts";
 import Trash from "./admin/Products/Trash/Trash";
 
-
+import Login from "./admin/Authentication/Login/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -57,7 +58,14 @@ function App() {
         <Route path="/admin/login" element={<Login />} />
 
         {/* Admin */}
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="dashboard" element={<Dashboard />} />
 
           <Route path="products" element={<ProductList />} />
@@ -78,11 +86,10 @@ function App() {
 
           <Route path="enquiries" element={<EnquiryList />} />
           <Route path="enquiries/view/:id" element={<ViewEnquiry />} />
-          
-          <Route path="settings"element={<WebsiteSettings />}/>
 
-          <Route path="/admin/products/trash" element={<Trash />} />
-          
+          <Route path="settings" element={<WebsiteSettings />} />
+
+          <Route path="products/trash" element={<Trash />} />
         </Route>
 
         {/* 404 */}

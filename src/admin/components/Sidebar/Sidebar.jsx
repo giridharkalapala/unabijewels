@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
+import logo from "../../../assets/images/logo.png";
 
 function Sidebar() {
   const menus = [
@@ -18,7 +19,14 @@ function Sidebar() {
 
   return (
     <aside className="sidebar">
-      <h2 className="logo">Unabi Admin</h2>
+      <div className="logo-section">
+        <img src={logo} alt="UNabi Jewels" className="logo-img" />
+
+        <div className="logo-text">
+          <h2>UNabi</h2>
+          <p>Admin Panel</p>
+        </div>
+      </div>
 
       <nav>
         {menus.map((menu) => (
@@ -31,6 +39,8 @@ function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      <div className="sidebar-footer">Version 1.0</div>
     </aside>
   );
 }

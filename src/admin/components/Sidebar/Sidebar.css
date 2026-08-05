@@ -1,40 +1,135 @@
+/* ===============================
+   Sidebar
+================================= */
+
 .sidebar {
-    width: 260px;
-    height: 100vh;
-    background: #2F2F2F;
-    color: white;
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding: 30px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 270px;
+  height: 100vh;
+
+  background: #2f2f2f;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 24px 18px;
+
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.08);
+
+  scrollbar-width: thin;
+  scrollbar-color: #c98f7b transparent;
+
+  z-index: 1000;
 }
 
-.logo {
-    margin-bottom: 40px;
-    color: #C98F7B;
-    text-align: center;
+/* Chrome scrollbar */
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
 }
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #c98f7b;
+  border-radius: 10px;
+}
+
+/* ===============================
+   Logo
+================================= */
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.logo-text h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 20px;
+}
+
+.logo-text p {
+  margin-top: 4px;
+  color: #bdbdbd;
+  font-size: 13px;
+}
+
+/* ===============================
+   Navigation
+================================= */
 
 .sidebar nav {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  flex: 1;
 }
 
 .sidebar a {
-    color: white;
-    text-decoration: none;
-    padding: 12px;
-    border-radius: 8px;
-    transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  border-radius: 12px;
+
+  color: #d8d8d8;
+  text-decoration: none;
+
+  transition: all .25s ease;
+
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .sidebar a:hover {
-    background: #C98F7B;
-    color: white !important;
+  background: #c98f7b;
+  color: white;
+  transform: translateX(4px);
 }
 
-.active {
-    background: white ;
-    color: #C98F7B !important;
+.sidebar a.active {
+  background: white;
+  color: #c98f7b;
+  font-weight: 700;
+}
+
+/* ===============================
+   Footer
+================================= */
+
+.sidebar-footer {
+  margin-top: auto;
+
+  padding-top: 20px;
+
+  border-top: 1px solid rgba(255,255,255,.08);
+
+  color: #999;
+
+  font-size: 12px;
+
+  text-align: center;
 }

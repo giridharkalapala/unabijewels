@@ -2,13 +2,10 @@ import { useRef, useState } from "react";
 import { uploadImage } from "../../../services/uploadService";
 import "./ImageGalleryUpload.css";
 
-function ImageGalleryUpload({
-  value = [],
-  onUpload,
-  bucket = "products",
-}) {
+function ImageGalleryUpload({ value = [], onUpload, bucket = "products" }) {
   const [images, setImages] = useState(value);
   const [uploading, setUploading] = useState(false);
+  const [preview, setPreview] = useState(null);
 
   const inputRef = useRef();
 
@@ -49,16 +46,13 @@ function ImageGalleryUpload({
 
   return (
     <div className="gallery-upload">
-
       <div
         className="gallery-dropzone"
         onClick={() => inputRef.current.click()}
       >
         <h3>📸 Upload Gallery Images</h3>
 
-        <p>
-          Click to upload multiple images
-        </p>
+        <p>Click to upload multiple images</p>
       </div>
 
       <input
@@ -70,33 +64,48 @@ function ImageGalleryUpload({
         onChange={handleFiles}
       />
 
-      {uploading && (
-        <p className="gallery-uploading">
-          Uploading...
-        </p>
-      )}
+      {uploading && <p className="gallery-uploading">Uploading...</p>}
 
       <div className="gallery-grid">
         {images.map((image, index) => (
-          <div
-            className="gallery-item"
-            key={index}
-          >
-            <img
-              src={image}
-              alt=""
-            />
+          <div className="gallery-card" key={index}>
+            <img src={image} alt={`Gallery ${index + 1}`} />
 
-            <button
-              type="button"
-              onClick={() => removeImage(index)}
-            >
-              ✕
-            </button>
+            <div className="gallery-actions">
+              <button
+                type="button"
+                className="cover-btn"
+                title="Set as Cover"
+                onClick={() => onSetCover(image)}
+              >
+                ⭐
+              </button>
+
+              <button
+                type="button"
+                className="preview-btn"
+                title="Preview"
+                onClick={() => setPreview(image)}
+              >
+                👁
+              </button>
+
+              <button
+                type="button"
+                className="delete-btn"
+                onClick={() => removeImage(index)}
+              >
+                🗑
+              </button>
+            </div>
           </div>
         ))}
       </div>
-
+      {preview && (
+        <div className="preview-overlay" onClick={() => setPreview(null)}>
+          <img src={preview} alt="" onClick={(e) => e.stopPropagation()} />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,9 +1,23 @@
 import "./Header.css";
 import { FaSyncAlt } from "react-icons/fa";
+import { logout } from "../../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+
   function refreshPage() {
     window.location.reload();
+  }
+
+  async function handleLogout() {
+    try {
+      await logout();
+      navigate("/admin/login", { replace: true });
+    } catch (error) {
+      console.error(error);
+      alert("Logout failed.");
+    }
   }
 
   return (
@@ -32,6 +46,10 @@ function Header() {
         </button>
 
         <div className="profile">Admin</div>
+
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </header>
   );

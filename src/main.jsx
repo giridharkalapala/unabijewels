@@ -6,6 +6,7 @@ import AOS from "aos";
 import "./styles/colors.css";
 import "./styles/global.css";
 import "aos/dist/aos.css";
+import { AuthProvider } from "./context/AuthContext";
 
 AOS.init({
   duration: 900,
@@ -16,6 +17,8 @@ AOS.init({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </React.StrictMode>,
 );
