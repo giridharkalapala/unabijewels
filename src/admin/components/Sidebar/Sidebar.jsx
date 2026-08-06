@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 import logo from "../../../assets/images/logo.png";
+// import useAdminProfile from "../../../hooks/useAdminProfile";
 
 function Sidebar() {
+  // const { profile, loading } = useAdminProfile();
   const menus = [
     { name: "Dashboard", path: "/admin/dashboard" },
     { name: "Homepage", path: "/admin/homepage" },

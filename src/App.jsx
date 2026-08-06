@@ -37,6 +37,9 @@ import Trash from "./admin/Products/Trash/Trash";
 
 import Login from "./admin/Authentication/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+
+import Profile from "./admin/Profile/Profile";
 
 function App() {
   return (
@@ -55,7 +58,14 @@ function App() {
         </Route>
 
         {/* Admin Login */}
-        <Route path="/admin/login" element={<Login />} />
+        <Route
+          path="/admin/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
 
         {/* Admin */}
         <Route
@@ -90,6 +100,8 @@ function App() {
           <Route path="settings" element={<WebsiteSettings />} />
 
           <Route path="products/trash" element={<Trash />} />
+          
+          <Route path="profile" element={<Profile />} />
         </Route>
 
         {/* 404 */}
